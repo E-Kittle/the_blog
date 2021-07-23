@@ -1,0 +1,63 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    display: block;
+    color: black;
+
+}
+
+/* Style for the nav */
+nav {
+    height: 80px;
+    border-bottom: solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 600px;
+    margin-bottom: 30px;
+}
+
+nav h1 {
+    font-size: 40px;
+}
+
+/* Styling for the HomePage */
+
+
+.home-wrapper {
+    width: 80vw;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.post-wrapper {
+    width: 80%;
+    height: 200px;
+    border: solid;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    align-self: center;
+    align-items: center;
+    border-bottom: solid 10px;
+    margin: 10px 0;
+}
+
+.content-wrapper {
+    width: 80%;
+    margin: 20px auto 0 auto;
+}
