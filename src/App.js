@@ -2,6 +2,7 @@ import Home from './components/Home';
 import Post from './components/Post';
 import Nav from './components/Nav';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
 
 
@@ -105,6 +106,14 @@ const posts = [
   }
 ];
 
+fetch('https://pacific-citadel-88479.herokuapp.com/api/posts', {
+  mode: 'cors'
+}).then(function(response) {
+  return response.json();
+})
+.then(function(response) {
+  console.log(response);
+})
 
 
 function App() {
