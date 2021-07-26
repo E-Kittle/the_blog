@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Comment from './Comment';
 
 // In POST
 // We'll grab the appropriate post from the database... 
@@ -57,11 +58,7 @@ const Post = (props) => {
             <div className='comment-wrapper'>
                 {comments.map(comment => {
                     return (
-                        <div className='comment-container' key={comment._id} >
-                            <h2>{comment.name}</h2>
-                            <p>{comment.comment}</p>
-                            <p>{comment.date.slice(0, 10)}</p>
-                        </div>
+                        <Comment comment={comment} key={comment._id} />
                     )
                 })}
             </div>
