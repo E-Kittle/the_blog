@@ -15,14 +15,11 @@ import PostSnip from '../components/PostSnip';
 const Home = (props) => {
 
     const { posts } = props;
-
-
+    
     return (
         <div className='home-wrapper'>
             {posts.map(post => {
-                if (post.published) {
-                    return <PostSnip post={post} />
-                }
+                    return <PostSnip post={post} key={post._id}/>
             })}
         </div>
 

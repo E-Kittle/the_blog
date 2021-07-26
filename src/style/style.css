@@ -8,7 +8,6 @@ a {
     text-decoration: none;
     display: block;
     color: black;
-
 }
 
 /* Style for the nav */
@@ -18,17 +17,18 @@ nav {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    width: 600px;
+    /* width: 800px; */
+    width: 60%;
+    min-width: 250px;
+    /* min-width: 400px; */
     margin-bottom: 30px;
 }
 
 nav h1 {
-    font-size: 40px;
+    font-size: 50px;
 }
 
 /* Styling for the HomePage */
-
-
 .home-wrapper {
     width: 80vw;
     margin: 0 auto;
@@ -60,4 +60,27 @@ nav h1 {
 .content-wrapper {
     width: 80%;
     margin: 20px auto 0 auto;
+}
+
+/* Styling for the blog page */
+
+.post-page-wrapper {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.post-section {
+
+}
+
+/* Work on later - ugh */
+
+@media (max-width: 800px){
+    nav {
+        /* width: 300px; */
+    }
+
+    nav h1 {
+        font-size: 25px;
+    }
 }

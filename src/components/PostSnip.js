@@ -6,9 +6,6 @@ import '../style/style.css';
 const PostSnip = (props) => {
     const { post } = props;
 
-// Need to find a way to limit the amount of characters that appear on 
-//the homepage. 
-
     return (
         <a href={`/post/${post._id}`} className='post-wrapper'>
             <div className='post-header'>
