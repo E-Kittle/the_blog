@@ -27,7 +27,59 @@ const Post = (props) => {
     // Set state variable for the comments related to this specific post
     const [comments, setComments] = useState([]);
 
+    // Set state variable for a new comment
+    const [newComment, setNewComment] = useState({name: '', comment:''})
+
+    // Function to handle user entering a new comment
+    const handleChange = (event) => {
+        let commentChange = newComment;
+        commentChange[event.target.id] = event.target.value;
+        setNewComment(commentChange);
+
+    }
+
+    // Function to sanitize the data
+    function sanitize(string) {
+        const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#x27;',
+            "/": '&#x2F;',
+        };
+        const reg = /[&<>"'/]/ig;
+        return string.replace(reg, (match)=>(map[match]));
+      }
+
+    // Function to handle user submitting a new comment
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        // Validate data, submit to database, if successful submit: clear form and reload DOM, if not successful:
+        //Display error and keep data
+
+        // Sanitize data
+        let sanName = sanitize(newComment.name);
+        let sanComment = sanitize(newComment.comment);
+        setNewComment({name:sanName, comment:sanComment});
+
+        // Submit POST request to database
+        // Question: Since setState is async do I need to sanitize the data during onChange?
+        // I also need to set these up as environmental variables...
+        // Read this in the AM https://medium.com/@ai.ashkan9473/environment-variables-in-client-side-6a6ff51c6085
+        axios.post(`https://pacific-citadel-88479.herokuapp.com/api/posts/${props.match.params.id}/comments`, newComment)
+        .then(response => {
+            setNewComment({name:'', comment:''}); console.log(response)
+        })
+        .catch(error => {
+            
+            console.error('There was an error!', error);
+        });
+    }
+
+
     // Hook to grab the comment data from the API
+    //   Need to figure out - component did unmount for this section
     useEffect(() => {
         axios.get(`https://pacific-citadel-88479.herokuapp.com/api/posts/${props.match.params.id}/comments`)
             .then(response => {
@@ -36,7 +88,6 @@ const Post = (props) => {
             .catch(error => console.log(error))
     }, [props.match.params.id]);
 
-    //   Need to figure out - component did unmount for this section
 
     return (
         <div className='post-page-wrapper'>
@@ -62,6 +113,19 @@ const Post = (props) => {
                     )
                 })}
             </div>
+
+            {/* Form to add a new post */}
+            <form onSubmit={handleSubmit}>
+                <div className='form-element'>
+                    <label htmlFor='name'>Name:</label>
+                    <input id='name' name='name' placeholder='name/username (optional)' onChange={handleChange} />
+                </div>
+                <div className='form-element'>
+                    <label htmlFor='comment'>Comment:</label>
+                    <textarea id='comment' name='comment' required onChange={handleChange}  /> 
+                </div>
+                <button type='submit'>Submit Comment</button>
+            </form>
         </div>
     )
 }
