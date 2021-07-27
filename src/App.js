@@ -1,6 +1,8 @@
 import Home from './components/Home';
 import Post from './components/Post';
 import Nav from './components/Nav';
+import Login from './components/Login';
+import SignUp from './components/SignUp';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -13,7 +15,7 @@ function App() {
   const [posts, setPosts] = useState([]);
 
 
-  // Hook to grab the posts data from the API
+  // Hook to grab the posts data from the API - This is grabbed every single time the page reloads....
   useEffect(() => {
     axios.get('https://pacific-citadel-88479.herokuapp.com/api/posts')
     .then(response => {
@@ -37,6 +39,8 @@ function App() {
           <Route path='/post/:id' render={(props) => (
             <Post {...props} posts={posts} />
           )} />
+          <Route path='/login' component={Login} />
+          <Route path='/signup' component={SignUp} />
         </Switch>
       </div>
     </Router>
