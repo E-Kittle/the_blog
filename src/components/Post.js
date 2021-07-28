@@ -67,7 +67,7 @@ const Post = (props) => {
         // Question: Since setState is async do I need to sanitize the data during onChange?
         // I also need to set these up as environmental variables...
         // Read this in the AM https://medium.com/@ai.ashkan9473/environment-variables-in-client-side-6a6ff51c6085
-        axios.post(`https://pacific-citadel-88479.herokuapp.com/api/posts/${props.match.params.id}/comments`, newComment)
+        axios.post(`https://peaceful-wave-73796.herokuapp.com/api/posts/${props.match.params.id}/comments`, newComment)
         .then(response => {
             setNewComment({name:'', comment:''}); console.log(response)
         })
@@ -81,7 +81,7 @@ const Post = (props) => {
     // Hook to grab the comment data from the API
     //   Need to figure out - component did unmount for this section
     useEffect(() => {
-        axios.get(`https://pacific-citadel-88479.herokuapp.com/api/posts/${props.match.params.id}/comments`)
+        axios.get(`https://peaceful-wave-73796.herokuapp.com/api/posts/${props.match.params.id}/comments`)
             .then(response => {
                 setComments(response.data.comments);
             })

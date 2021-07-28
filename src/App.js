@@ -5,21 +5,22 @@ import Login from './components/Login';
 import SignUp from './components/SignUp';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-
-
+// import axios from 'axios';
+import { getAllPosts } from './services/user.service';
 
 
 function App() {
   
   const [posts, setPosts] = useState([]);
 
+  // The /posts fetch is called every single time that App renders
+  // We need to fix this.
 
   // Hook to grab the posts data from the API - This is grabbed every single time the page reloads....
   useEffect(() => {
-    axios.get('https://pacific-citadel-88479.herokuapp.com/api/posts')
+    getAllPosts()
     .then(response => {
-      console.log(response.data)
+      // console.log(response.data)
       setPosts(response.data);
     })
     .catch(error => console.log(error))
