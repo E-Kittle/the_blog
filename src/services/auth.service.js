@@ -33,7 +33,7 @@ const register = (username, email, password, commenting) => {
 
 //My OWN attempt
 const login = (username, password) => {
-  axios
+  return axios
     .post(API_URL + "login", {
       username,
       password,

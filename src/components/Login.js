@@ -20,29 +20,30 @@ const Login = () => {
     }
 
 
-    async function handleSubmit(e) {
-        // html handles required text input so no validation required
+    // async function handleSubmit(e) {
+    //     // html handles required text input so no validation required
 
-        e.preventDefault();
-        // Send the login info to the API
-        const result = await login(user.username, user.password);
-        console.log('in handleSubmit')
-        console.log(result)
-    }
+    //     e.preventDefault();
+    //     // Send the login info to the API
+    //     const result = await login(user.username, user.password);
+    //     console.log('in handleSubmit')
+    //     console.log(result)
+    // }
 
 
 
     // This works. but logs 'here' and then 'in auth.service'
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-    //     login(user.username, user.password).then(
-    //         () => {
-    //             console.log('here')
-    //             console.log(localStorage.getItem("user"));
-    //         }
-    //     )
-    // }
+        login(user.username, user.password)
+        .then(response => {
+                console.log('here')
+                console.log(response)
+                // console.log(localStorage.getItem("user"));
+            }
+        )
+    }
 
     return (
         <div className='form-page-wrapper'>
