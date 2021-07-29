@@ -29,8 +29,10 @@ const Post = (props) => {
         //Send the comment to the database with axios
         postComment(props.match.params.id, newComment.name, newComment.body)
             .then(response => {
+                console.log(response.data)
                 // Data transfer successful, clear the newComment state
-                setNewComment({ name: '', comment: '' }); console.log(response)
+                setComments(oldArray => [...oldArray, response.data]);
+                setNewComment({ name: '', comment: '' });
             })
             .catch(error => {
                 if (error.response.status === 400) {
@@ -56,7 +58,7 @@ const Post = (props) => {
 
     // Hook to grab the comment data from the API
     // Need to figure out how to re-trigger an API call when 
-    // we submit a new comment
+    // we submit a new commentf
     useEffect(() => {
         getComments(props.match.params.id)
             .then(response => {
@@ -89,11 +91,11 @@ const Post = (props) => {
             <form onSubmit={handleSubmit}>
                 <div className='form-element'>
                     <label htmlFor='name'>Name:</label>
-                    <input id='name' name='name' placeholder='name/username (optional)' onChange={handleChange} />
+                    <input id='name' name='name' placeholder='name/username (optional)' onChange={handleChange} defaultValue={newComment.name} />
                 </div>
                 <div className='form-element'>
                     <label htmlFor='body'>Comment:</label>
-                    <textarea id='body' name='body' required onChange={handleChange} />
+                    <textarea id='body' name='body' required onChange={handleChange} defaultValue={newComment.body}/>
                 </div>
                 <button type='submit'>Submit Comment</button>
             </form>
