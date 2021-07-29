@@ -4,33 +4,14 @@ import Nav from './components/Nav';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 // import axios from 'axios';
-import { getAllPosts } from './services/user.service';
 
 
-const adminTestData = {
-  user: {username: 'monstera', admin: true},
-  posts: [{title: 'Post1', content:'Lots of content for post1', published:true}, {title: 'Post2', content:'Lots of content for post2', published:false}, {title: 'Post3', content:'Lots of content for post3', published:true}],
-  comments: [{comment:'here is a boring comment'}, {comment:'here is a lame comment'}, {comment:"I'm so tired"}, {comment:'API CALLS SUCK'}]
-};
+
+
 function App() {
   
-  const [posts, setPosts] = useState([]);
-
-  // The /posts fetch is called every single time that App renders
-  // We need to fix this.
-
-  // Hook to grab the posts data from the API - This is grabbed every single time the page reloads....
-  useEffect(() => {
-    getAllPosts()
-    .then(response => {
-      // console.log(response.data)
-      setPosts(response.data);
-    })
-    .catch(error => console.log(error))
-  }, []);
-
 
   // When a user selects a specific route, we can either use an outside source to store the posts data
   // or we can call for it from the db within the component... 
@@ -39,12 +20,8 @@ function App() {
       <Nav />
       <div className='app'>
         <Switch>
-          <Route path='/' exact render={(props) => (
-            <Home {...props} posts={posts} />
-          )} />
-          <Route path='/post/:id' render={(props) => (
-            <Post {...props} posts={posts} />
-          )} />
+          <Route path='/' exact component={Home} />
+          <Route path='/post/:id' component={Post}/>
           <Route path='/login' component={Login} />
           <Route path='/signup' component={SignUp} />
         </Switch>

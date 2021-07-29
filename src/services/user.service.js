@@ -9,6 +9,19 @@ const getAllPosts = () => {
     return axios.get(`${API_URL}/posts`)
 }
 
+const getPost = (postId) => {
+    return axios.get(`${API_URL}/posts/${postId}`);
+}
+
+const getComments = (postId) => {
+    return axios.get(`${API_URL}/posts/${postId}/comments`);
+}
+
+const postComment = (postId, name, body) => {
+    return axios.post(`${API_URL}/posts/${postId}/comments`, {name:name, comment:body});
+}
+
+
 
 const postUserSignUp = (user) => {
     return axios.post(`${API_URL}/auth/signup`, user)
@@ -17,4 +30,4 @@ const postUserSignUp = (user) => {
 const postLogin = (user) => {
     return axios.post(`${API_URL}/auth/login`, user) 
 }
-export { getAllPosts, postUserSignUp, postLogin };
+export { getAllPosts, postUserSignUp, postLogin, getPost, getComments, postComment };
