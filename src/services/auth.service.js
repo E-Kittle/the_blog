@@ -38,16 +38,19 @@ const login = (username, password) => {
       username,
       password,
     })
+
+    // API call was successful, set the token in local storage and return the response
     .then((response) => {
-      console.log('in auth.service')
       if (response.data.token) {
         localStorage.setItem("user", JSON.stringify(response.data));
       }
-
       return response;
     })
-    // .catch(error => console.log(error)
-    // );
+
+    // API call failed, return the error with appropriate data
+    .catch((err) => {
+      return err.response;
+    })
 };
 
 const logout = () => {
