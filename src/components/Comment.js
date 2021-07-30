@@ -6,7 +6,7 @@ const Comment = (props) => {
 
     return (
         <div className='comment-container'>
-            <h2>{comment.name}</h2>
+            {comment.name===undefined ? <h2>Guest</h2> : <h2>{comment.name}</h2>}
             <p>{comment.comment}</p>
             <p>{comment.date.slice(0, 10)}</p>
         </div>

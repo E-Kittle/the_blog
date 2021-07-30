@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../style/style.css';
 import { logout } from '../services/auth.service';
 
@@ -12,6 +12,9 @@ const Nav = (props) => {
         console.log('would logout')
     }
 
+    useEffect(() => {
+        console.log('in nav')
+    }, [])
 
     return (
         <nav>
@@ -27,7 +30,7 @@ const Nav = (props) => {
                     :
                     // Logged in
                     <div className='nav-links'>
-                        <a href='/profile'>View Profile</a>
+                        <a href={`/profile/${currentUser.id}`}>View Profile</a>
                         {/* If admin- display 'New Post' link */}
                         {currentUser.admin? <a href='/createPost'>New Post</a>: null}
                         <button onClick={logoutNav}>Logout</button>

@@ -40,6 +40,9 @@ const Login = (props) => {
                     //Resets the errors state
                     setErrors({ auth: '' });
 
+                    console.log('logging in: ')
+                    console.log(user)
+                    console.log(response.data.user)
                     // Sets the new user in App.js
                     setNewUser(response.data.user);
                     // Redirects the user to the homepage

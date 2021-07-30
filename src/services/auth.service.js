@@ -54,6 +54,7 @@ const authenticateUser = (setUser) => {
   if(config.headers !== undefined) {
     axios.get(API_URL+'userAuth', config)
     .then(request => {
+      // console.log(request.data.user);
       // Authentication was successful
       setUser(request.data.user);
     })

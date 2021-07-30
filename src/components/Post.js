@@ -6,12 +6,15 @@ import { getPost, getComments, postComment } from '../services/user.service';
 
 const Post = (props) => {
 
+    // Destructure props
+    const { currentUser } = props;
+
     // Set state variable for the comments and post for the specific post
     const [comments, setComments] = useState([]);
     const [post, setPost] = useState({ title: '', date: '', content: '' });
 
     // Set state variable for a new comment
-    const [newComment, setNewComment] = useState({ name: '', body: '' })
+    const [newComment, setNewComment] = useState({ name: currentUser.username, body: '' })
 
     // Function to handle user entering a new comment
     const handleChange = (event) => {
@@ -25,17 +28,21 @@ const Post = (props) => {
     const handleSubmit = (event) => {
         //Prevent page refresh
         event.preventDefault();
+        console.log(newComment)
 
         //Send the comment to the database with axios
         postComment(props.match.params.id, newComment.name, newComment.body)
             .then(response => {
-
                 // Clear newComment - This clears the input fields
-                setNewComment({ name: '', body: '' });
+                if (currentUser.username !== '') {
+                    setNewComment({ name: currentUser.username, body: '' });
+                } else {
+                    setNewComment({ name: '', body: '' });
+                }
             })
             .catch(error => {
                 if (error.response.status === 400) {
-                    
+
                     //This returns the error data to a 400 request
                     //This will be triggered if the comment body is missing
                     //However, this will never be triggered because
@@ -47,6 +54,7 @@ const Post = (props) => {
 
     //Hook to grab the current post
     useEffect(() => {
+        
         getPost(props.match.params.id)
             .then(response => {
                 setPost(response.data);
@@ -55,17 +63,28 @@ const Post = (props) => {
     }, [props.match.params.id]);
 
 
+    // Effect to set the currentUser.username to the newComment.name state
+    useEffect(() => {
+        if(currentUser.username !== ''){
+            // Set the state
+            setNewComment({
+                name: currentUser.username, 
+                body: ''
+            })
+        }
+    }, [currentUser])
+
     // Hook to grab the comment data from the API
     useEffect(() => {
         // New API call is triggered if user submits a new comment
-        if (newComment.name==='' && newComment.body === '') {
+        if ((newComment.name === '' || newComment.name === currentUser.username) && newComment.body === '') {
             getComments(props.match.params.id)
                 .then(response => {
                     setComments(response.data.comments);
                 })
                 .catch(error => console.log(error))
         }
-    }, [newComment, props.match.params.id]);
+    }, [newComment, props.match.params.id, currentUser]);
 
 
     return (
@@ -89,10 +108,18 @@ const Post = (props) => {
 
             {/* Form to add a new post */}
             <form onSubmit={handleSubmit}>
-                <div className='form-element'>
-                    <label htmlFor='name'>Name:</label>
-                    <input id='name' name='name' placeholder='name/username (optional)' value={newComment.name} onChange={handleChange} />
-                </div>
+                {currentUser.username !== '' ?
+                    // user exists
+                    <div className='form-element current-user-label'>
+                        <h4 >{currentUser.username}</h4>
+                    </div>
+                    :
+                    // User doesn't exist
+                    <div className='form-element'>
+                        <label htmlFor='name'>Name:</label>
+                        <input id='name' name='name' placeholder='name/username (optional)' value={newComment.name} onChange={handleChange} />
+                    </div>
+                }
                 <div className='form-element'>
                     <label htmlFor='body'>Comment:</label>
                     <textarea id='body' name='body' required value={newComment.body} onChange={handleChange} />

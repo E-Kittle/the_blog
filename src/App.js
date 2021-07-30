@@ -3,6 +3,7 @@ import Post from './components/Post';
 import Nav from './components/Nav';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
+import UserProfile from './components/UserProfile';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { authenticateUser } from './services/auth.service'
@@ -12,15 +13,16 @@ import { authenticateUser } from './services/auth.service'
 
 function App() {
 
-// Two methods to accomplish grabbing the current user for for the nav element
-// Either, just set the user when user login - problem is if user exits
-// webpage and comes back, they're still logged in, but it looks like they're not
+  // Two methods to accomplish grabbing the current user for for the nav element
+  // Either, just set the user when user login - problem is if user exits
+  // webpage and comes back, they're still logged in, but it looks like they're not
 
-//Second solution is to make an API call to check the token
-//problem will  be if this is called multiple times - Too many api calls
+  //Second solution is to make an API call to check the token
+  //problem will  be if this is called multiple times - Too many api calls
 
 
   const [currentUser, setCurrentUser] = useState({
+    id: '',
     username: '',
     email: '',
     admin: false
@@ -29,15 +31,18 @@ function App() {
   // Sets the currentUser following the API call in useEffect hook
   const setUser = (user) => {
     setCurrentUser({
+      id: user.id,
       username: user.username,
       email: user.email,
       admin: user.admin
     })
+    console.log('setuser')
   };
 
   // Triggered when logout is selected in the nav element
   const logoutUser = () => {
     setCurrentUser({
+      id: '',
       username: '',
       email: '',
       admin: false
@@ -45,24 +50,31 @@ function App() {
   }
 
   useEffect(() => {
-    authenticateUser(setUser);
+      authenticateUser(setUser);
+
   }, [])
 
   // When a user selects a specific route, we can either use an outside source to store the posts data
   // or we can call for it from the db within the component... 
   return (
     <Router>
-      <Nav logoutUser={logoutUser} currentUser={currentUser}/>
+      <Nav logoutUser={logoutUser} currentUser={currentUser} />
       <div className='app'>
         <Switch>
           <Route path='/' exact component={Home} />
-          <Route path='/post/:id' component={Post} />
-          <Route path='/login' 
-          render={(props) => (
-            <Login {...props} setNewUser={setUser} />
-          )} />
-          
+          <Route path='/post/:id'
+            render={(props) => (
+              <Post {...props} currentUser={currentUser} />
+            )} />
+          <Route path='/login'
+            render={(props) => (
+              <Login {...props} setNewUser={setUser} />
+            )} />
           <Route path='/signup' component={SignUp} />
+          <Route path='/profile/:userid'
+            render={(props) => (
+              <UserProfile {...props} currentUser={currentUser} />
+            )} />
         </Switch>
       </div>
     </Router>
@@ -82,3 +94,18 @@ export default App;
 //2 - Am I making too many API calls for the nav element?
 //  If I can store the data in redux, then I wouldn't have to contantly
 //  pull it. Or I can store it in app.js - but this will constantly be rerendered
+
+// Things to do
+/*
+1 - Add 'new post' section that allows an admin to add a new post
+2 - Add 'view profile' page that allows users to view the user they clicked on,
+      view all of their posts, and view all of their comments
+      Here: the user can edit or delete their comments or manage/delete their posts
+3 - Add 'Manage Post' page for admins - From here they can go to 'new post'
+4 - Add categories and subcategories for posts
+5 - Allow users to sort/filter by subcategories, etc. or sort by date
+6 - Allow multiple pages on homepage for 10+ posts
+7 - Make it pretty
+
+
+*/
