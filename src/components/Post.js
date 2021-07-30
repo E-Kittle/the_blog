@@ -15,10 +15,10 @@ const Post = (props) => {
 
     // Function to handle user entering a new comment
     const handleChange = (event) => {
-        let commentChange = newComment;
-        commentChange[event.target.id] = event.target.value;
-        setNewComment(commentChange);
-
+        setNewComment({
+            ...newComment,
+            [event.target.id]: event.target.value
+        })
     }
 
     // Function to handle user submitting a new comment
@@ -29,10 +29,9 @@ const Post = (props) => {
         //Send the comment to the database with axios
         postComment(props.match.params.id, newComment.name, newComment.body)
             .then(response => {
-                console.log(response.data)
-                // Data transfer successful, clear the newComment state
-                setComments(oldArray => [...oldArray, response.data]);
-                setNewComment({ name: '', comment: '' });
+
+                // Clear newComment - This clears the input fields
+                setNewComment({ name: '', body: '' });
             })
             .catch(error => {
                 if (error.response.status === 400) {
@@ -57,15 +56,16 @@ const Post = (props) => {
 
 
     // Hook to grab the comment data from the API
-    // Need to figure out how to re-trigger an API call when 
-    // we submit a new commentf
     useEffect(() => {
-        getComments(props.match.params.id)
-            .then(response => {
-                setComments(response.data.comments);
-            })
-            .catch(error => console.log(error))
-    }, [props.match.params.id]);
+        // New API call is triggered if user submits a new comment
+        if (newComment.name==='' && newComment.body === '') {
+            getComments(props.match.params.id)
+                .then(response => {
+                    setComments(response.data.comments);
+                })
+                .catch(error => console.log(error))
+        }
+    }, [newComment, props.match.params.id]);
 
 
     return (
@@ -91,11 +91,11 @@ const Post = (props) => {
             <form onSubmit={handleSubmit}>
                 <div className='form-element'>
                     <label htmlFor='name'>Name:</label>
-                    <input id='name' name='name' placeholder='name/username (optional)' onChange={handleChange} defaultValue={newComment.name} />
+                    <input id='name' name='name' placeholder='name/username (optional)' value={newComment.name} onChange={handleChange} />
                 </div>
                 <div className='form-element'>
                     <label htmlFor='body'>Comment:</label>
-                    <textarea id='body' name='body' required onChange={handleChange} defaultValue={newComment.body}/>
+                    <textarea id='body' name='body' required value={newComment.body} onChange={handleChange} />
                 </div>
                 <button type='submit'>Submit Comment</button>
             </form>
