@@ -1,9 +1,17 @@
 import React from 'react';
 import '../style/style.css';
+import { logout } from '../services/auth.service';
 
 const Nav = (props) => {
 
-    const { currentUser } = props;
+    const { currentUser, logoutUser } = props;
+
+    const logoutNav = () => {
+        logoutUser();
+        logout();
+        console.log('would logout')
+    }
+
 
     return (
         <nav>
@@ -22,7 +30,7 @@ const Nav = (props) => {
                         <a href='/profile'>View Profile</a>
                         {/* If admin- display 'New Post' link */}
                         {currentUser.admin? <a href='/createPost'>New Post</a>: null}
-                        <a href='/logout'>Logout</a>
+                        <button onClick={logoutNav}>Logout</button>
                     </div>
                 }
         </nav>

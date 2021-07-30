@@ -36,9 +36,13 @@ const Login = (props) => {
             .then(response => {
                 // Authentication was successful, clear errors state and redirect to homepage
                 if (response.status === 200) {
-                    setNewUser(response.data.user);
-                    // console.log(response.data.user)
+                    
+                    //Resets the errors state
                     setErrors({ auth: '' });
+
+                    // Sets the new user in App.js
+                    setNewUser(response.data.user);
+                    // Redirects the user to the homepage
                     history.push('/');
                 }
                 // Authentication failed. Display error message for user
