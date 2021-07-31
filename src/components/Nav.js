@@ -30,7 +30,7 @@ const Nav = (props) => {
                     :
                     // Logged in
                     <div className='nav-links'>
-                        <a href={`/profile/${currentUser.id}`}>View Profile</a>
+                        <a href={`/profile/myprofile`}>View Profile</a>
                         {/* If admin- display 'New Post' link */}
                         {currentUser.admin? <a href='/createPost'>New Post</a>: null}
                         <button onClick={logoutNav}>Logout</button>

@@ -50,7 +50,7 @@ function App() {
   }
 
   useEffect(() => {
-      authenticateUser(setUser);
+    authenticateUser(setUser);
 
   }, [])
 
@@ -58,8 +58,8 @@ function App() {
   // or we can call for it from the db within the component... 
   return (
     <Router>
-      <Nav logoutUser={logoutUser} currentUser={currentUser} />
       <div className='app'>
+        <Nav logoutUser={logoutUser} currentUser={currentUser} />
         <Switch>
           <Route path='/' exact component={Home} />
           <Route path='/post/:id'
