@@ -76,14 +76,14 @@ const Post = (props) => {
     // Hook to grab the comment data from the API
     useEffect(() => {
         // New API call is triggered if user submits a new comment
-        if ((newComment.name === '' || newComment.name === currentUser.username) && newComment.body === '') {
+        if (newComment.body === '') {
             getComments(props.match.params.id)
                 .then(response => {
                     setComments(response.data.comments);
                 })
                 .catch(error => console.log(error))
         }
-    }, [newComment, props.match.params.id, currentUser]);
+    }, [newComment, props.match.params.id]);
 
 
     return (

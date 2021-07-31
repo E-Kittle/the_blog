@@ -31,7 +31,7 @@ const Nav = (props) => {
                     <div className='nav-links'>
                         <a href={`/profile/myprofile`}>View Profile</a>
                         {/* If admin- display 'New Post' link */}
-                        {currentUser.admin? <a href='/createPost'>New Post</a>: null}
+                        {currentUser.admin? <a href='/managePosts'>Manage Posts</a>: null}
                         <button onClick={logoutNav}>Logout</button>
                     </div>
                 }

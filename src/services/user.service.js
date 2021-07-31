@@ -32,4 +32,8 @@ const postUserSignUp = (user) => {
 const postLogin = (user) => {
     return axios.post(`${API_URL}/auth/login`, user) 
 }
-export { getAllPosts, postUserSignUp, postLogin, getPost, getComments, postComment, getProfile };
+
+const getUserPosts = (user) => {
+    return axios.get(`${API_URL}/user/${user.id}/posts`)
+}
+export { getAllPosts, getUserPosts, postUserSignUp, postLogin, getPost, getComments, postComment, getProfile };

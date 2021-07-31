@@ -4,6 +4,8 @@ import Nav from './components/Nav';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import UserProfile from './components/UserProfile';
+import PostManager from './components/PostManager';
+import NewPost from './components/NewPost';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { authenticateUser } from './services/auth.service'
@@ -66,6 +68,14 @@ function App() {
           <Route path='/profile/:userid'
             render={(props) => (
               <UserProfile {...props} currentUser={currentUser} />
+            )} />
+          <Route path='/managePosts'
+            render={(props) => (
+              <PostManager {...props} currentUser={currentUser} />
+            )} />
+          <Route path='/newPost'
+            render={(props) => (
+              <NewPost {...props} currentUser={currentUser} />
             )} />
         </Switch>
       </div>

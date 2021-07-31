@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getProfile } from '../services/user.service';
-import Comment from '../components/Comment';
+import ProfileComment from '../components/ProfileComment';
 import PostSnip from '../components/PostSnip';
 
 const UserProfile = (props) => {
@@ -44,6 +44,7 @@ const UserProfile = (props) => {
       .then(results => {
           setProfileUser(results.data.user);
           if (results.data.comments !== undefined) { //User has comments
+            console.log(results.data.comments)
             setComments(results.data.comments);
           }
           if (results.data.posts !== undefined) {  //User is admin and has posts
@@ -80,7 +81,7 @@ const UserProfile = (props) => {
           }
           {comments.map(comment => {
             return (
-              <Comment comment={comment} key={comment._id} />
+              <ProfileComment comment={comment} key={comment._id} />
             )
           })}
 
@@ -88,7 +89,7 @@ const UserProfile = (props) => {
       </div>
       {/* Section for their Posts */}
           <div className='profile-section'>
-
+          {currentUser.admin && posts.length !== 0? <a href='/managePosts'>Manage Posts</a> : null}
           {posts.length !== 0 ? <h1 className='section-title'>Blog Posts</h1> : null}
           {posts.map(post => <PostSnip post={post} key={post.id}/>)}
 
