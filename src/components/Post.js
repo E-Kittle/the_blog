@@ -14,7 +14,7 @@ const Post = (props) => {
     const [post, setPost] = useState({ title: '', date: '', content: '' });
 
     // Set state variable for a new comment
-    const [newComment, setNewComment] = useState({ name: currentUser.username, body: '' })
+    const [newComment, setNewComment] = useState({ posterid: '', body: '' })
 
     // Function to handle user entering a new comment
     const handleChange = (event) => {
@@ -28,16 +28,16 @@ const Post = (props) => {
     const handleSubmit = (event) => {
         //Prevent page refresh
         event.preventDefault();
-        console.log(newComment)
 
         //Send the comment to the database with axios
-        postComment(props.match.params.id, newComment.name, newComment.body)
+        
+        postComment(props.match.params.id, newComment.posterid, newComment.body)
             .then(response => {
                 // Clear newComment - This clears the input fields
                 if (currentUser.username !== '') {
-                    setNewComment({ name: currentUser.username, body: '' });
+                    setNewComment({ posterid: currentUser.id, body: '' });
                 } else {
-                    setNewComment({ name: '', body: '' });
+                    setNewComment({ posterid: '', body: '' });
                 }
             })
             .catch(error => {
@@ -50,6 +50,7 @@ const Post = (props) => {
                     console.log(error.response.data.errArr);
                 }
             });
+            
     }
 
     //Hook to grab the current post
@@ -63,16 +64,14 @@ const Post = (props) => {
     }, [props.match.params.id]);
 
 
-    // Effect to set the currentUser.username to the newComment.name state
     useEffect(() => {
-        if(currentUser.username !== ''){
-            // Set the state
-            setNewComment({
-                name: currentUser.username, 
-                body: ''
-            })
-        }
+        // Ensures that we grab the currentUser data before form submit
+        setNewComment({
+            ...newComment,
+            posterid: currentUser.id
+        })
     }, [currentUser])
+
 
     // Hook to grab the comment data from the API
     useEffect(() => {
@@ -108,18 +107,9 @@ const Post = (props) => {
 
             {/* Form to add a new post */}
             <form onSubmit={handleSubmit}>
-                {currentUser.username !== '' ?
-                    // user exists
-                    <div className='form-element current-user-label'>
-                        <h4 >{currentUser.username}</h4>
+                    <div className='form-element user-label'>
+                        {currentUser.username !== '' ?  <h4>{currentUser.username}</h4> : <h4>Comment as Guest</h4>}
                     </div>
-                    :
-                    // User doesn't exist
-                    <div className='form-element'>
-                        <label htmlFor='name'>Name:</label>
-                        <input id='name' name='name' placeholder='name/username (optional)' value={newComment.name} onChange={handleChange} />
-                    </div>
-                }
                 <div className='form-element'>
                     <label htmlFor='body'>Comment:</label>
                     <textarea id='body' name='body' required value={newComment.body} onChange={handleChange} />

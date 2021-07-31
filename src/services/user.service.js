@@ -17,8 +17,8 @@ const getComments = (postId) => {
     return axios.get(`${API_URL}/posts/${postId}/comments`);
 }
 
-const postComment = (postId, name, body) => {
-    return axios.post(`${API_URL}/posts/${postId}/comments`, {name:name, comment:body});
+const postComment = (postId, author, body) => {
+    return axios.post(`${API_URL}/posts/${postId}/comments`, {author:author, comment:body});
 }
 
 const getProfile = (userId) => {

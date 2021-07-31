@@ -16,9 +16,30 @@ const UserProfile = (props) => {
   useEffect(() => {
     if (props.match.params.userid === 'myprofile') {
       // Then, we use the currentUsers userid
-
+      if (currentUser.id === ''){
+        // useEffect from App.js hasn't been called yet, wait until currentUser has
+        // all data
+        console.log('holdup')
+      } else if (currentUser.id !== '') {
+          // currentUser has current data - Make the API call
+        console.log('grabbing currentUsers data in UserProfile.js')
+        getProfile(currentUser.id)
+        .then(results => {
+          setProfileUser(results.data.user);
+          if (results.data.comments !== undefined) { //User has comments
+            setComments(results.data.comments);
+          }
+          if (results.data.posts !== undefined) {  //User is admin and has posts
+            setPosts(results.data.posts)
+          }
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+      }
 
     } else {    // Not current user so make API call with param
+      console.log('not a match in UserProfile')
       getProfile(props.match.params.userid)
       .then(results => {
           setProfileUser(results.data.user);
@@ -35,7 +56,7 @@ const UserProfile = (props) => {
       // We use the id of the paramater to make the API call
 
     }
-  }, [props.match.params.userid])
+  }, [props.match.params.userid, currentUser])
 
 
 

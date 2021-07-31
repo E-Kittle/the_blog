@@ -13,14 +13,6 @@ import { authenticateUser } from './services/auth.service'
 
 function App() {
 
-  // Two methods to accomplish grabbing the current user for for the nav element
-  // Either, just set the user when user login - problem is if user exits
-  // webpage and comes back, they're still logged in, but it looks like they're not
-
-  //Second solution is to make an API call to check the token
-  //problem will  be if this is called multiple times - Too many api calls
-
-
   const [currentUser, setCurrentUser] = useState({
     id: '',
     username: '',
@@ -36,7 +28,6 @@ function App() {
       email: user.email,
       admin: user.admin
     })
-    console.log('setuser')
   };
 
   // Triggered when logout is selected in the nav element
@@ -50,6 +41,7 @@ function App() {
   }
 
   useEffect(() => {
+    console.log('checking token again in app.js (1)')
     authenticateUser(setUser);
 
   }, [])

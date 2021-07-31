@@ -9,12 +9,11 @@ const Nav = (props) => {
     const logoutNav = () => {
         logoutUser();
         logout();
-        console.log('would logout')
     }
 
     useEffect(() => {
-        console.log('in nav')
-    }, [])
+        // Causes component to refresh once currentUser is updated by app.js
+    }, [currentUser])
 
     return (
         <nav>

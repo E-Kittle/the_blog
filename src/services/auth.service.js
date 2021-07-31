@@ -59,6 +59,10 @@ const authenticateUser = (setUser) => {
       setUser(request.data.user);
     })
     .catch(err => {
+      if (err.response.status === 401) {  
+        // A token exists from a previous authentication but is no longer valid, remove from localStorage
+        logout();
+      }
       console.log(err.response)
     })
   }
