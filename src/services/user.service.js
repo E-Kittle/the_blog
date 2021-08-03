@@ -43,8 +43,16 @@ const postComment = (postId, author, body) => {
     return axios.post(`${API_URL}/posts/${postId}/comments`, {author:author, comment:body});
 }
 
+const postNewPost = (newPost) => {
+    const config = authHeader();
+    console.log(config)
+    console.log(newPost)
+    return axios.post(`${API_URL}/posts`, newPost);
+}
+
 const getProfile = (userId) => {
     const config = authHeader();
+
     return axios.get(`${API_URL}/user/${userId}`, config);
 }
 
@@ -61,4 +69,4 @@ const getUserPosts = (user) => {
     return axios.get(`${API_URL}/user/${user.id}/posts`, config)
 }
 export { getAllPosts, getUserPosts, postUserSignUp, postLogin, getPost, getComments, postComment, getProfile,
-         getAllCategories, getPostsByCategory, getPostsBySubCategory };
+         getAllCategories, getPostsByCategory, getPostsBySubCategory, postNewPost };

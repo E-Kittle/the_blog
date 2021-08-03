@@ -22,7 +22,6 @@ const Home = () => {
 
     // Click handler to filter the posts by category or subcategory
     const handleClick = (e) => {
-
         // User clicked 'view all posts', so grab all published posts from API
         if (e.target.className === 'posts-reset') {
             getAllPosts()
@@ -102,6 +101,7 @@ const Home = () => {
                 <button className='posts-reset' onClick={handleClick}>View All Posts</button>
             </div>
             <div className='home-post-wrapper'>
+                {posts.length === 0 ? <h2>No Posts Found</h2>: null}
                 {posts.map(post => {
                     return <PostSnip post={post} key={post._id} />
                 })}

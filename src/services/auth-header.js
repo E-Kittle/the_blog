@@ -12,3 +12,4 @@ export default function authHeader() {
     }
   }
   
+  // Removed: , "Access-Control-Allow-Origin": "*"

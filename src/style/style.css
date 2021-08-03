@@ -169,11 +169,36 @@ form button:hover {
     height: 30px;
 }
 
-.form-radios {
+.form-publish-radios {
     width: 250px;
 }
 .signup-radios {
     margin-top: 10px;
     display: flex;
     justify-content: space-between;
+}
+
+/* For NEW POST or EDIT POST */
+.post-form-wrapper {
+    width: 80vw;
+    height: 80vh;
+}
+
+.form-radios {
+    display: flex;
+    justify-content: space-between;
+}
+
+.new-post-wrapper {
+}
+
+
+.new-button {
+    height: 30px;
+    font-size: 10px;
+    width: 50px;
+}
+
+.selected {
+    background-color: red;
 }
