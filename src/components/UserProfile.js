@@ -66,7 +66,7 @@ const UserProfile = (props) => {
       {/* Section for the main profile data */}
       <div className='profile-wrapper'>
         <div className='blog-title'>
-          <h1>{profileUser.username}</h1>
+          {currentUser.username !== profileUser.username ? <h1>{profileUser.username}</h1> : <h1>My Profile</h1>}
         </div>
       </div>
 
@@ -89,9 +89,10 @@ const UserProfile = (props) => {
       </div>
       {/* Section for their Posts */}
           <div className='profile-section'>
-          {currentUser.admin && posts.length !== 0? <a href='/managePosts'>Manage Posts</a> : null}
-          {posts.length !== 0 ? <h1 className='section-title'>Blog Posts</h1> : null}
-          {posts.map(post => <PostSnip post={post} key={post.id}/>)}
+          {profileUser.admin ? <h1 className='section-title'>Blog Posts</h1> : null}
+          {currentUser.username === profileUser.username? <a href='/managePosts'>Manage Posts</a> : null}
+          {posts.length === 0 && currentUser.username === profileUser.username? <h2>No Posts by User</h2> : null}
+          {posts.map(post => <PostSnip post={post} key={post._id}/>)}
 
           </div>
     </div>

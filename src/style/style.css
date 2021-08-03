@@ -38,11 +38,37 @@ nav {
 
 /* Styling for the HomePage */
 .home-wrapper {
-    width: 80vw;
     margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    
+    /* align-items: center; */
+}
+
+.home-cat-wrapper {
+    width: 250px;
+    height: 500px;
+}
+
+.home-cat-wrapper button {
+    background-color: white;
+    border: none;
+    width: 200px;
+    text-align: left
+}
+
+.home-cat-wrapper button:hover {
+    background-color: rgb(153, 112, 112);
+    border: none;
+}
+
+.cat-title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.home-post-wrapper {
+    /* Available if we need it */
 }
 
 .post-wrapper {

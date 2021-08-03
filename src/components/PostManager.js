@@ -17,6 +17,7 @@ const PostManager = (props) => {
         } else {
             getUserPosts(currentUser)
             .then(results => {
+                console.log(results.data)
                 setPosts(results.data);
             })
             .catch(err => {

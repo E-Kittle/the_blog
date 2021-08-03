@@ -1,8 +1,8 @@
 import React from 'react';
 import '../style/style.css';
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { postUserSignUp } from '../services/user.service';
+// import { useHistory } from 'react-router-dom';
+// import { postUserSignUp } from '../services/user.service';
 
 const SignUp = (props) => {
 
@@ -22,7 +22,10 @@ const SignUp = (props) => {
     })
 
     const handleChange = (e) => {
-
+        console.log(currentUser)
+        console.log(newPost)
+        setNewPost(0)
+        setErrors()
     } 
 
     const handleSubmit = (e) => {

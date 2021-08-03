@@ -7,7 +7,7 @@ const PostSnip = (props) => {
     const { post } = props;
 
     return (
-        <a href={`/post/${post._id}`} className='post-wrapper'>
+        <a href={`/post/${post._id}`} className='post-wrapper' key={post._id}>
             <div className='post-header'>
                 <h1>{post.title }</h1>
                 <h3>{post.date.slice(0,10)}</h3>
