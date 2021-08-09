@@ -1,19 +1,26 @@
 import React from 'react';
 import '../style/style.css';
-
+import { useHistory } from 'react-router-dom';
 
 
 const PostManagerSnip = (props) => {
-    const { post } = props;
+    const { post, delPost, editPost } = props;
 
+    let history = useHistory(); 
+    
+    const redirectForEditing = (e) => {
+        e.preventDefault();
+        console.log(`would edit: ${e.target.id}`)
+        history.push(`/editPost/${e.target.id}`)
+    }
 
 
     // Add a section to toggle whether something is published or not
     return (
         <a href={`/post/${post._id}`} className='post-wrapper' key={post._id}>
             <div className='manager-button-wrapper'>
-                <button>Edit Post </button>
-                <button>Delete Post</button>
+                <button id={post._id} onClick={redirectForEditing}>Edit Post </button>
+                <button id={post._id} onClick={delPost}>Delete Post</button>
             </div>
             <div className='post-header'>
                 <h1>{post.title}</h1>

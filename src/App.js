@@ -77,6 +77,10 @@ function App() {
             render={(props) => (
               <NewPost {...props} currentUser={currentUser} />
             )} />
+          <Route path='/editPost/:postid'
+            render={(props) => (
+              <NewPost {...props} currentUser={currentUser} />
+            )} />
         </Switch>
       </div>
     </Router>

@@ -2,7 +2,7 @@ import React from 'react';
 import '../style/style.css';
 import { useState, useEffect } from 'react';
 import { getAllCategories, postNewPost } from '../services/user.service'
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 // import { postUserSignUp } from '../services/user.service';
 
 
@@ -17,6 +17,9 @@ import { getAllCategories, postNewPost } from '../services/user.service'
         subcategory: {type:String, required: true}
 */
 const SignUp = (props) => {
+
+    let history = useHistory();
+
 
     // Destructure props
     const { currentUser } = props;
@@ -89,10 +92,12 @@ const SignUp = (props) => {
         }
      
         if (passed) {
+            console.log('submitting new post in NewPost component')
             postNewPost(newPost)
-            .then(results => {
-                console.log('passed?')
-                console.log(results)
+            .then(response => {
+                if(response.status === 200) {
+                    history.push('/managePosts')
+                }
             })
             .catch(error => {
                 /*
@@ -166,7 +171,7 @@ const SignUp = (props) => {
                 <form onSubmit={handleSubmit}>
                     <div className='form-element'>
                         <label htmlFor='title'>Title</label>
-                        <input type='text' id='title' name='title' required onChange={handleChange}></input>
+                        <input type='text' id='title' name='title' value={newPost.title} required onChange={handleChange}></input>
                         <span className='errors'>{errors.title}</span>
                     </div>
                     <div className='form-element'>

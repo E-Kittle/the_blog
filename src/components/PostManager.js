@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { getUserPosts } from '../services/user.service';
+import { getUserPosts, deletePost } from '../services/user.service';
 import PostManagerSnip from '../components/PostManagerSnip';
 
 const PostManager = (props) => {
@@ -9,20 +9,35 @@ const PostManager = (props) => {
     const { currentUser } = props;
 
     // State to hold the users posts
-    const [ posts, setPosts ] = useState([]);
+    const [posts, setPosts] = useState([]);
+
+    const delPost = (e) => {
+        e.preventDefault();
+        deletePost(e.target.id)
+            .then(results => {
+                let index = posts.findIndex(post => post._id === e.target.id)
+                let newPosts = posts;
+                newPosts.splice(index, 1)
+                setPosts([...newPosts])
+            })
+            .catch(err => {
+                console.log('error')
+                console.log(err)
+            })
+    }
+
 
     useEffect(() => {
         if (currentUser.id === '') {
             // Wait for App.js to finish grabbing currentUser
         } else {
             getUserPosts(currentUser)
-            .then(results => {
-                console.log(results.data)
-                setPosts(results.data);
-            })
-            .catch(err => {
-                console.log(err)
-            })
+                .then(results => {
+                    setPosts(results.data);
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         }
     }, [currentUser])
 
@@ -30,16 +45,16 @@ const PostManager = (props) => {
     // component for this
     return (
         <div className='manager-container'>
-            {currentUser.username === ''? null : <h3>{currentUser.username}'s Blog Posts</h3>}
+            {currentUser.username === '' ? null : <h3>{currentUser.username}'s Blog Posts</h3>}
             <a href='/newPost'>Add New Post</a>
             <div className='manage-post-wrapper'>
                 {posts.length === 0 ? <h4>No Posts Found</h4> : <h4>Posts</h4>}
                 {posts.map(post => {
-                    return <PostManagerSnip post={post} key={post._id} />
+                    return <PostManagerSnip post={post} key={post._id} delPost={delPost} />
                 })}
             </div>
 
-        
+
         </div>
     )
 }

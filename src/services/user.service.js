@@ -1,7 +1,7 @@
 // This file contains methods for making API calls
 // 
 
-import axios from 'axios'; 
+import axios from 'axios';
 import authHeader from '../services/auth-header'
 const API_URL = "https://peaceful-wave-73796.herokuapp.com/api";
 
@@ -40,12 +40,13 @@ const getComments = (postId) => {
 }
 
 const postComment = (postId, author, body) => {
-    return axios.post(`${API_URL}/posts/${postId}/comments`, {author:author, comment:body});
+    return axios.post(`${API_URL}/posts/${postId}/comments`, { author: author, comment: body });
 }
 
 const postNewPost = (newPost) => {
-    const config = authHeader();
-    console.log(config)
+    console.log('checking newPost in postNewPost user.service')
+    // const config = authHeader();
+    // console.log(config)
     console.log(newPost)
     return axios.post(`${API_URL}/posts`, newPost);
 }
@@ -61,12 +62,19 @@ const postUserSignUp = (user) => {
 }
 
 const postLogin = (user) => {
-    return axios.post(`${API_URL}/auth/login`, user) 
+    return axios.post(`${API_URL}/auth/login`, user)
+}
+
+const deletePost = (postid) => {
+    const config = authHeader();
+    return axios.delete(`${API_URL}/posts/${postid}`, config)
 }
 
 const getUserPosts = (user) => {
     const config = authHeader();
     return axios.get(`${API_URL}/user/${user.id}/posts`, config)
 }
-export { getAllPosts, getUserPosts, postUserSignUp, postLogin, getPost, getComments, postComment, getProfile,
-         getAllCategories, getPostsByCategory, getPostsBySubCategory, postNewPost };
+export {
+    getAllPosts, getUserPosts, postUserSignUp, postLogin, getPost, getComments, postComment, getProfile,
+    getAllCategories, getPostsByCategory, getPostsBySubCategory, postNewPost, deletePost
+};
