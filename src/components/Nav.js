@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import '../style/style.css';
 import { logout } from '../services/auth.service';
+import { Link } from 'react-router-dom';
 
 const Nav = (props) => {
 
@@ -18,23 +19,23 @@ const Nav = (props) => {
     return (
         <nav>
             <div className='nav-title'>
-                <a href='/'>The Blog</a>
+                <Link to='/'>The Blog</Link>
             </div>
-                {currentUser.username === '' ?
-                    // Not logged in
-                    <div className='nav-links'>
-                        <a href='/login'>Login</a>
-                        <a href='/signup'>Sign Up</a>
-                    </div>
-                    :
-                    // Logged in
-                    <div className='nav-links'>
-                        <a href={`/profile/myprofile`}>View Profile</a>
-                        {/* If admin- display 'New Post' link */}
-                        {currentUser.admin? <a href='/managePosts'>Manage Posts</a>: null}
-                        <button onClick={logoutNav}>Logout</button>
-                    </div>
-                }
+            {currentUser.username === '' ?
+                // Not logged in
+                <div className='nav-links'>
+                    <Link to='/login'>Login</Link>
+                    <Link to='/signup'>Sign Up</Link>
+                </div>
+                :
+                // Logged in
+                <div className='nav-links'>
+                    <Link to={`/profile/myprofile`}>View Profile</Link>
+                    {/* If admin- display 'New Post' link */}
+                    {currentUser.admin ? <Link to='/managePosts'>Manage Posts</Link> : null}
+                    <button onClick={logoutNav}>Logout</button>
+                </div>
+            }
         </nav>
     )
 }

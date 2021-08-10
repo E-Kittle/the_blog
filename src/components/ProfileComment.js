@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 
 const ProfileComment = (props) => {
 
@@ -7,7 +8,7 @@ const ProfileComment = (props) => {
 
     return (
         <div className='comment-container' key={comment._id}>
-            <a href={`/post/${comment.post._id}`}>Post Title: {comment.post.title}</a>
+            <Link to={`/post/${comment.post._id}`}>Post Title: {comment.post.title}</Link>
             <p>{comment.comment}</p>
             <p>{comment.date.slice(0, 10)}</p>
         </div>

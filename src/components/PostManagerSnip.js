@@ -1,6 +1,6 @@
 import React from 'react';
 import '../style/style.css';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 
 const PostManagerSnip = (props) => {
@@ -17,7 +17,7 @@ const PostManagerSnip = (props) => {
 
     // Add a section to toggle whether something is published or not
     return (
-        <a href={`/post/${post._id}`} className='post-wrapper' key={post._id}>
+        <Link to={`/post/${post._id}`} className='post-wrapper' key={post._id}>
             <div className='manager-button-wrapper'>
                 <button id={post._id} onClick={redirectForEditing}>Edit Post </button>
                 <button id={post._id} onClick={delPost}>Delete Post</button>
@@ -29,7 +29,7 @@ const PostManagerSnip = (props) => {
             <div className='content-wrapper'>
                 <p>{`${post.content.slice(0, 200)}...`}</p>
             </div>
-        </a>
+        </Link>
     )
 
 }

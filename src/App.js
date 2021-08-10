@@ -9,6 +9,7 @@ import NewPost from './components/NewPost';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { authenticateUser } from './services/auth.service'
+import Routes from './Routes';
 // import axios from 'axios';
 
 
@@ -44,6 +45,7 @@ function App() {
 
   useEffect(() => {
     console.log('checking token again in app.js (1)')
+    console.log(currentUser)
     authenticateUser(setUser);
 
   }, [])
@@ -52,38 +54,45 @@ function App() {
   // or we can call for it from the db within the component... 
   return (
     <Router>
-      <div className='app'>
-        <Nav logoutUser={logoutUser} currentUser={currentUser} />
-        <Switch>
-          <Route path='/' exact component={Home} />
-          <Route path='/post/:id'
-            render={(props) => (
-              <Post {...props} currentUser={currentUser} />
-            )} />
-          <Route path='/login'
-            render={(props) => (
-              <Login {...props} setNewUser={setUser} />
-            )} />
-          <Route path='/signup' component={SignUp} />
-          <Route path='/profile/:userid'
-            render={(props) => (
-              <UserProfile {...props} currentUser={currentUser} />
-            )} />
-          <Route path='/managePosts'
-            render={(props) => (
-              <PostManager {...props} currentUser={currentUser} />
-            )} />
-          <Route path='/newPost'
-            render={(props) => (
-              <NewPost {...props} currentUser={currentUser} />
-            )} />
-          <Route path='/editPost/:postid'
-            render={(props) => (
-              <NewPost {...props} currentUser={currentUser} />
-            )} />
-        </Switch>
-      </div>
+    <div className='app'>
+      <Nav logoutUser={logoutUser} currentUser={currentUser} />
+      <Routes setUser={setUser} currentUser={currentUser}/>
+    </div>
     </Router>
+
+    // <Router>
+    //   <div className='app'>
+    //     <Nav logoutUser={logoutUser} currentUser={currentUser} />
+    //     <Switch>
+    //       <Route path='/' exact component={Home} />
+    //       <Route path='/post/:id'
+    //         render={(props) => (
+    //           <Post {...props} currentUser={currentUser} />
+    //         )} />
+    //       <Route path='/login'
+    //         render={(props) => (
+    //           <Login {...props} setNewUser={setUser} />
+    //         )} />
+    //       <Route path='/signup' component={SignUp} />
+    //       <Route path='/profile/:userid'
+    //         render={(props) => (
+    //           <UserProfile {...props} currentUser={currentUser} />
+    //         )} />
+    //       <Route path='/managePosts'
+    //         render={(props) => (
+    //           <PostManager {...props} currentUser={currentUser} />
+    //         )} />
+    //       <Route path='/newPost'
+    //         render={(props) => (
+    //           <NewPost {...props} currentUser={currentUser} />
+    //         )} />
+    //       <Route path='/editPost/:postid'
+    //         render={(props) => (
+    //           <NewPost {...props} currentUser={currentUser} />
+    //         )} />
+    //     </Switch>
+    //   </div>
+    // </Router>
 
 
   );

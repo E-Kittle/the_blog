@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../style/style.css';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import { login } from '../services/auth.service';
 
 const Login = (props) => {

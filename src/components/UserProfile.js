@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getProfile } from '../services/user.service';
 import ProfileComment from '../components/ProfileComment';
 import PostSnip from '../components/PostSnip';
+import { Link } from 'react-router-dom';
 
 const UserProfile = (props) => {
 
@@ -90,7 +91,7 @@ const UserProfile = (props) => {
       {/* Section for their Posts */}
           <div className='profile-section'>
           {profileUser.admin ? <h1 className='section-title'>Blog Posts</h1> : null}
-          {currentUser.username === profileUser.username? <a href='/managePosts'>Manage Posts</a> : null}
+          {currentUser.username === profileUser.username? <Link to='/managePosts'>Manage Posts</Link> : null}
           {posts.length === 0 && currentUser.username === profileUser.username? <h2>No Posts by User</h2> : null}
           {posts.map(post => <PostSnip post={post} key={post._id}/>)}
 

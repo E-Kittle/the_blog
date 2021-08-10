@@ -1,4 +1,4 @@
-
+import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { getUserPosts, deletePost } from '../services/user.service';
 import PostManagerSnip from '../components/PostManagerSnip';
@@ -46,7 +46,7 @@ const PostManager = (props) => {
     return (
         <div className='manager-container'>
             {currentUser.username === '' ? null : <h3>{currentUser.username}'s Blog Posts</h3>}
-            <a href='/newPost'>Add New Post</a>
+            <Link to='/newPost'>Add New Post</Link>
             <div className='manage-post-wrapper'>
                 {posts.length === 0 ? <h4>No Posts Found</h4> : <h4>Posts</h4>}
                 {posts.map(post => {

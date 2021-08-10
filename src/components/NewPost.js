@@ -3,6 +3,7 @@ import '../style/style.css';
 import { useState, useEffect } from 'react';
 import { getAllCategories, postNewPost } from '../services/user.service'
 import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // import { postUserSignUp } from '../services/user.service';
 
 
@@ -209,7 +210,7 @@ const SignUp = (props) => {
                                     </div>
                                 )
                             })}
-                            <a href='/manageCategories'>Manage Categories</a>
+                            <Link to='/manageCategories'>Manage Categories</Link>
                         </div>
                     </div>
                     <button type='submit'>Login</button>
