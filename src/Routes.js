@@ -6,6 +6,7 @@ import SignUp from './components/SignUp';
 import UserProfile from './components/UserProfile';
 import PostManager from './components/PostManager';
 import NewPost from './components/NewPost';
+import CategoryManager from './components/CategoryManager';
 import { Switch, Route } from 'react-router-dom';
 
 
@@ -22,6 +23,7 @@ const Routes = () => {
             <Route path='/managePosts' component={PostManager} />
             <Route path='/newPost' component={NewPost} />
             <Route path='/editPost/:postid' component={NewPost} />
+            <Route path='/manageCategories' component={CategoryManager} />
           </Switch>
     )
 }

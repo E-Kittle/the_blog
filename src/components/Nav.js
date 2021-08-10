@@ -6,8 +6,8 @@ import { UserContext } from '../App';
 
 const Nav = () => {
 
+    // Grab UserContext from app.js and destructure currentUser from it
     const userContext = useContext(UserContext);
-
     const { currentUser } = userContext;
 
     const logoutNav = () => {

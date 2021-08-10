@@ -43,6 +43,7 @@ const SignUp = () => {
         subcategory: '',
     })
 
+
     const handleChange = (e) => {
         if (e.target.type === 'radio' && e.target.name === 'published') {
             if(e.target.id === 'yes') {
@@ -103,41 +104,16 @@ const SignUp = () => {
                 }
             })
             .catch(error => {
-                /*
                 if (error.response.status === 400) {
                     console.log(error.response.data.errArr)
                 } else {
                     console.log(error.response)
                 }
-                */
-               console.log('failed?')
-               console.log(error)
-               console.log(error.response)
+                
             })
             
         }
     }
-/*
-    .then(response => {
-        // Clear newComment - This clears the input fields
-        if (currentUser.username !== '') {
-            setNewComment({ posterid: currentUser.id, body: '' });
-        } else {
-            setNewComment({ posterid: '', body: '' });
-        }
-    })
-    .catch(error => {
-        if (error.response.status === 400) {
-
-            //This returns the error data to a 400 request
-            //This will be triggered if the comment body is missing
-            //However, this will never be triggered because
-            //the text input has 'required'
-            console.log(error.response.data.errArr);
-        }
-    });
-
-*/
 
     // Used to set the authors id to that of the currentUser
     useEffect(() => {

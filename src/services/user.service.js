@@ -74,7 +74,21 @@ const getUserPosts = (user) => {
     const config = authHeader();
     return axios.get(`${API_URL}/user/${user.id}/posts`, config)
 }
+
+const postCategory = (name) => {
+    const config = authHeader();
+    let category = {name}
+    return axios.post(`${API_URL}/categories`, category, config)
+}
+
+const postSubCategory = (catId, subcat) => {
+    console.log(`adding ${subcat} to ${catId}`)
+    const config = authHeader();
+    return axios.post(`${API_URL}/categories/${catId}/subcategory`, {subcategory: subcat}, config)
+}
+
+
 export {
     getAllPosts, getUserPosts, postUserSignUp, postLogin, getPost, getComments, postComment, getProfile,
-    getAllCategories, getPostsByCategory, getPostsBySubCategory, postNewPost, deletePost
+    getAllCategories, getPostsByCategory, getPostsBySubCategory, postNewPost, deletePost, postCategory, postSubCategory 
 };
