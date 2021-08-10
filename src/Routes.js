@@ -9,38 +9,19 @@ import NewPost from './components/NewPost';
 import { Switch, Route } from 'react-router-dom';
 
 
-const Routes = (props) => {  
+const Routes = () => {  
 
-    const { setUser, currentUser } = props;
 
     return (
           <Switch>
             <Route path='/' exact component={Home} />
-            <Route path='/post/:id'
-              render={(props) => (
-                <Post {...props} currentUser={currentUser} />
-              )} />
-            <Route path='/login'
-              render={(props) => (
-                <Login {...props} setNewUser={setUser} />
-              )} />
+            <Route path='/post/:id' component={Post} />
+            <Route path='/login' component={Login} />
             <Route path='/signup' component={SignUp} />
-            <Route path='/profile/:userid'
-              render={(props) => (
-                <UserProfile {...props} currentUser={currentUser} />
-              )} />
-            <Route path='/managePosts'
-              render={(props) => (
-                <PostManager {...props} currentUser={currentUser} />
-              )} />
-            <Route path='/newPost'
-              render={(props) => (
-                <NewPost {...props} currentUser={currentUser} />
-              )} />
-            <Route path='/editPost/:postid'
-              render={(props) => (
-                <NewPost {...props} currentUser={currentUser} />
-              )} />
+            <Route path='/profile/:userid' component={UserProfile} />
+            <Route path='/managePosts' component={PostManager} />
+            <Route path='/newPost' component={NewPost} />
+            <Route path='/editPost/:postid' component={NewPost} />
           </Switch>
     )
 }

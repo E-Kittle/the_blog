@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { getUserPosts, deletePost } from '../services/user.service';
 import PostManagerSnip from '../components/PostManagerSnip';
+import { UserContext } from '../App';
 
-const PostManager = (props) => {
+const PostManager = () => {
 
-    // Destructure props
-    const { currentUser } = props;
+    // Grab UserContext from app.js and destructure currentUser from it
+    const userContext = useContext(UserContext);
+    const { currentUser } = userContext;
 
     // State to hold the users posts
     const [posts, setPosts] = useState([]);

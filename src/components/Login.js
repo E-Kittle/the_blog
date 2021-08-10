@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import '../style/style.css';
-import { useHistory, Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { login } from '../services/auth.service';
+import { UserContext } from '../App';
 
-const Login = (props) => {
+const Login = () => {
+
+    const userContext = useContext(UserContext);
 
     // Router method for re-routing user
     let history = useHistory();
 
-    // Destructure props
-    const { setNewUser } = props;
 
     // State to hold the user input for the login as well as the
     // appropriate errors if user authentication fails
@@ -40,11 +41,9 @@ const Login = (props) => {
                     //Resets the errors state
                     setErrors({ auth: '' });
 
-                    console.log('logging in: ')
-                    console.log(user)
-                    console.log(response.data.user)
                     // Sets the new user in App.js
-                    setNewUser(response.data.user);
+                    userContext.userDispatch({ type: 'setUser', payload:response.data.user })
+
                     // Redirects the user to the homepage
                     history.push('/');
                 }

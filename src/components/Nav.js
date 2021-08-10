@@ -1,14 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import '../style/style.css';
 import { logout } from '../services/auth.service';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../App';
 
-const Nav = (props) => {
+const Nav = () => {
 
-    const { currentUser, logoutUser } = props;
+    const userContext = useContext(UserContext);
+
+    const { currentUser } = userContext;
 
     const logoutNav = () => {
-        logoutUser();
+        // 'logout' user in App.js state
+        userContext.userDispatch({type:'logoutUser'})
+
+        // Remove the token from localstorage
         logout();
     }
 

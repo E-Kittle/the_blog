@@ -1,9 +1,10 @@
 import React from 'react';
 import '../style/style.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { getAllCategories, postNewPost } from '../services/user.service'
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../App';
 // import { postUserSignUp } from '../services/user.service';
 
 
@@ -17,13 +18,14 @@ import { Link } from 'react-router-dom';
         category: {type: Schema.Types.ObjectId, ref:'Category', required:true},
         subcategory: {type:String, required: true}
 */
-const SignUp = (props) => {
+const SignUp = () => {
 
     let history = useHistory();
 
 
-    // Destructure props
-    const { currentUser } = props;
+    // Grab UserContext from app.js and destructure currentUser from it
+    const userContext = useContext(UserContext);
+    const { currentUser } = userContext;
 
     // State to hold the categories and errors
     const [categories, setCategories] = useState([]);

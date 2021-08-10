@@ -1,21 +1,47 @@
-import Home from './components/Home';
-import Post from './components/Post';
 import Nav from './components/Nav';
-import Login from './components/Login';
-import SignUp from './components/SignUp';
-import UserProfile from './components/UserProfile';
-import PostManager from './components/PostManager';
-import NewPost from './components/NewPost';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import React, { useEffect, useState, useReducer } from 'react';
 import { authenticateUser } from './services/auth.service'
 import Routes from './Routes';
 // import axios from 'axios';
 
+// Export context for the user reducerhook
+export const UserContext = React.createContext();
+
+// Set up Reducer state and function
+const initialState = {
+  id: '',
+  username: '',
+  email: '',
+  admin: false
+}
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'setUser':
+      return {
+        id: action.payload.id,
+        username: action.payload.username,
+        email: action.payload.email,
+        admin: action.payload.admin,
+      }
+    case 'logoutUser':
+      return initialState
+
+    default:
+      return state
+
+  }
+}
+
+
 
 
 function App() {
+  // useReducer hook for the user
+  const [currentUser, dispatch] = useReducer(reducer, initialState);
 
+  /*
   const [currentUser, setCurrentUser] = useState({
     id: '',
     username: '',
@@ -43,23 +69,28 @@ function App() {
     })
   }
 
+*/
+
   useEffect(() => {
     console.log('checking token again in app.js (1)')
     console.log(currentUser)
-    authenticateUser(setUser);
+    // authenticateUser(setUser);
 
   }, [])
 
   // When a user selects a specific route, we can either use an outside source to store the posts data
   // or we can call for it from the db within the component... 
   return (
-    <Router>
-    <div className='app'>
-      <Nav logoutUser={logoutUser} currentUser={currentUser} />
-      <Routes setUser={setUser} currentUser={currentUser}/>
-    </div>
-    </Router>
-
+    <UserContext.Provider
+      value={{ currentUser, userDispatch: dispatch }}
+    >
+      <Router>
+        <div className='app'>
+          <Nav />
+          <Routes />
+        </div>
+      </Router>
+    </UserContext.Provider>
     // <Router>
     //   <div className='app'>
     //     <Nav logoutUser={logoutUser} currentUser={currentUser} />

@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { getProfile } from '../services/user.service';
 import ProfileComment from '../components/ProfileComment';
 import PostSnip from '../components/PostSnip';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../App';
 
 const UserProfile = (props) => {
 
-  // Destructure currentUser
-  const { currentUser } = props;
+    // Grab UserContext from app.js and destructure currentUser from it
+    const userContext = useContext(UserContext);
+    const { currentUser } = userContext;
 
   // useState for the user, their posts, and their comments
   const [profileUser, setProfileUser] = useState({ username: '' });

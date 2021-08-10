@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Comment from './Comment';
 import { getPost, getComments, postComment } from '../services/user.service';
-
+import { UserContext } from '../App';
 
 
 const Post = (props) => {
 
-    // Destructure props
-    const { currentUser } = props;
+    // Grab currentUser from UserContext located in App.js
+    const userContext = useContext(UserContext);
+    const { currentUser } = userContext;
 
     // Set state variable for the comments and post for the specific post
     const [comments, setComments] = useState([]);
@@ -58,7 +59,7 @@ const Post = (props) => {
 
         getPost(props.match.params.id)
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 setPost(response.data);
             })
             .catch(error => console.log(error))
