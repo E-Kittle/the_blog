@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import Comment from './Comment';
 import { getPost, getComments, postComment } from '../services/user.service';
 import { UserContext } from '../App';
+import { Link } from 'react-router-dom';
 
 
 const Post = (props) => {
@@ -16,6 +17,12 @@ const Post = (props) => {
 
     // Set state variable for a new comment
     const [newComment, setNewComment] = useState({ posterid: '', body: '' })
+
+    // State to hold any errors/loading
+    const [loading, setLoading] = useState(true);
+    const [err, setErr] = useState('');
+
+
 
     // Function to handle user entering a new comment
     const handleChange = (event) => {
@@ -61,8 +68,17 @@ const Post = (props) => {
             .then(response => {
                 // console.log(response.data)
                 setPost(response.data);
+                setLoading(false);
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.log(error.response.status)
+                if (error.response.status === 404) {
+                    setErr('not found')
+                    setLoading(false)
+                } else {
+                    console.log(error)
+                }
+            })
     }, [props.match.params.id]);
 
 
@@ -83,45 +99,60 @@ const Post = (props) => {
                 .then(response => {
                     setComments(response.data.comments);
                 })
-                .catch(error => console.log(error))
+                .catch(error => {
+                    console.log('for comment')
+                    if (error.response.status === 404) {
+                        setErr('not found')
+                        setLoading(false);
+                    } else {
+                        console.log(error)
+                    }
+                })
         }
     }, [newComment, props.match.params.id]);
 
 
     return (
         <div className='post-page-wrapper'>
+            {err !== '' ? <h1> Post not found, return to HomePage </h1> : (
+                <div>
+                    {loading ? <h1>Loading...</h1> : null}
+                    {/* First, check if the database had returned an author yet */}
+                    {post.author === undefined ? null : (
+                        <div className='post-section' >
+                            <h1>{post.title}</h1>
+                            <h3>Author: <Link to={`/profile/${post.author._id}`}>{post.author.username}</Link></h3>
+                            <h3>Category: {post.category.name}</h3>
+                            <h3>Publish Date: {post.date.slice(0, 10)}</h3>
+                            <p>{post.content}</p>
+                        </div>
+                    )}
 
-            {post.author === undefined ? null : (
-                <div className='post-section' >
-                    <h1>{post.title}</h1>
-                    <h2>Author: {post.author.username}</h2>
-                    <h3>Category: {post.category.name}</h3>
-                    <p>{post.date.slice(0, 10)}</p>
-                    <p>{post.content}</p>
+
+                    {/* Display each of the comments for the post */}
+                    <div className='comment-wrapper'>
+                        <h3>Comments</h3>
+                        {comments.length === 0 ? <h3>No Comments Yet</h3> : null}
+                        {comments.map(comment => {
+                            return (
+                                <Comment comment={comment} key={comment._id} />
+                            )
+                        })}
+                    </div>
+
+                    {/* Form to add a new post */}
+                    <form onSubmit={handleSubmit}>
+                        <div className='form-element user-label'>
+                            {currentUser.username !== '' ? <h4>Add a comment as {currentUser.username}</h4> : <h4>Add a comment as Guest</h4>}
+                        </div>
+                        <div className='form-element'>
+                            <label htmlFor='body'></label>
+                            <textarea id='body' name='body' required value={newComment.body} onChange={handleChange} />
+                        </div>
+                        <button type='submit'>Submit Comment</button>
+                    </form>
                 </div>
             )}
-
-
-            {/* Display each of the comments for the post */}
-            <div className='comment-wrapper'>
-                {comments.map(comment => {
-                    return (
-                        <Comment comment={comment} key={comment._id} />
-                    )
-                })}
-            </div>
-
-            {/* Form to add a new post */}
-            <form onSubmit={handleSubmit}>
-                <div className='form-element user-label'>
-                    {currentUser.username !== '' ? <h4>{currentUser.username}</h4> : <h4>Comment as Guest</h4>}
-                </div>
-                <div className='form-element'>
-                    <label htmlFor='body'>Comment:</label>
-                    <textarea id='body' name='body' required value={newComment.body} onChange={handleChange} />
-                </div>
-                <button type='submit'>Submit Comment</button>
-            </form>
         </div>
     )
 }

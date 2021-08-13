@@ -1,0 +1,108 @@
+@import 'generic';
+
+/* Styling for the login/signup pages */
+.form-page-wrapper {
+    width: 100vw;
+    height: 100%;
+}
+
+// Styling for the login and signup page
+.form-wrapper {
+    margin: 100px auto 0 auto;
+    border: solid;
+    border-radius: 10px;
+    padding-top: 50px;
+
+    width: 25vw;
+    min-width: 400px;
+    overflow: scroll;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 80px;
+}
+
+.login-wrapper {
+    height: 400px;
+}
+
+.signup-wrapper {
+    margin-top: 20px;
+    height: 600px;
+}
+
+form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-element {
+    display: flex;
+    flex-direction: column;
+}
+
+form button {
+    margin-top: 20px;
+    width: 200px;
+    height: 40px;
+    align-self: center;
+    background-color: $secondary-background;
+    box-shadow: 5px 5px 10px #000000;
+    color: $font-tertiary;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    justify-self: flex-end;
+}
+
+form button:hover {
+    background-color: $secondary-background-hover;
+}
+
+.login-wrapper button {
+    margin-top: 60px;
+}
+
+
+
+.errors {
+    font-size: 14px;
+    color: rgba(255, 0, 0, 0.664);
+    height: 30px;
+}
+
+.form-publish-radios {
+    width: 250px;
+}
+.signup-radios {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* For NEW POST or EDIT POST */
+.post-form-wrapper {
+    width: 80vw;
+    height: 80vh;
+}
+
+.form-radios {
+    display: flex;
+    justify-content: space-between;
+}
+
+.new-button {
+    height: 30px;
+    font-size: 10px;
+    width: 50px;
+}
+
+@media (max-width: 500px) {
+    .form-wrapper {
+        width: 95%;
+        min-width: 230px;
+        margin-top: 0;
+    }
+}

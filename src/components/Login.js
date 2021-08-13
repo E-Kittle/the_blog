@@ -63,6 +63,7 @@ const Login = () => {
                     <div className='form-element'>
                         <label htmlFor='username'>Username</label>
                         <input type='text' id='username' name='username' required onChange={handleChange}></input>
+                        <span className='errors'>{errors.auth}</span>
                     </div>
                     <div className='form-element'>
                         <label htmlFor='password'>Password</label>

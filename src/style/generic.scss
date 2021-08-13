@@ -5,3 +5,34 @@ $secondary-background-hover:#72717156;
 $font-primary: #e1e1e180;
 $font-secondary: #b786fc6c;
 $font-tertiary: #bb86fc;
+
+/* Generic styling */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+body {
+    background-color: $primary-background;
+    color: $font-primary;
+}
+
+a {
+    text-decoration: none;
+    display: block;
+    color: $font-primary;
+}
+
+h1 {
+    font-size: 1.8rem;
+}
+
+h2 {
+    font-size: 1.7rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+}
