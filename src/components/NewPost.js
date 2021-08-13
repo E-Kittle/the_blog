@@ -1,5 +1,5 @@
 import React from 'react';
-import '../style/style.css';
+import '../style/style.scss';
 import { useState, useEffect, useContext } from 'react';
 import { getAllCategories, postNewPost } from '../services/user.service'
 import { useHistory } from 'react-router-dom';

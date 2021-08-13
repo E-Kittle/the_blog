@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import '../style/style.css';
+import '../style/style.scss';
 import { useHistory } from 'react-router-dom';
 import { login } from '../services/auth.service';
 import { UserContext } from '../App';

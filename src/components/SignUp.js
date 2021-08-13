@@ -1,5 +1,5 @@
 import React from 'react';
-import '../style/style.css';
+import '../style/style.scss';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { postUserSignUp } from '../services/user.service';

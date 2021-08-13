@@ -1,7 +1,8 @@
 import Nav from './components/Nav';
+import './style/style.scss'
 import { BrowserRouter as Router } from 'react-router-dom';
 import React, { useEffect, useReducer } from 'react';
-import { authenticateUser } from './services/auth.service'
+// import { authenticateUser } from './services/auth.service'
 import Routes from './Routes';
 // import axios from 'axios';
 

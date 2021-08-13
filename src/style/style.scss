@@ -1,0 +1,323 @@
+// @use 'generic';
+@import './generic.scss';
+@import 'nav';
+
+// $primary: #212121;
+
+/*
+Color schemes
+Basic font: #e1e1e180
+purple color: #b886fc
+post background color: #383838
+
+*/
+
+
+/* Generic styling */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+body {
+    background-color: $primary-background;
+    color: $font-primary;
+}
+
+a {
+    text-decoration: none;
+    display: block;
+    color: $font-primary;
+}
+
+h1 {
+    font-size: 1.8rem;
+}
+
+h2 {
+    font-size: 1.7rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+}
+
+
+
+/* Styling for the HomePage */
+.home-wrapper {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+
+/* Styling for the categories on the homepage */
+.home-cat-wrapper {
+    width: 250px;
+    margin-top: 10px;
+    padding-left: 15px;
+}
+
+
+.cat-filter {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 10px 0;
+    text-align: center;
+    border: none;
+    border-bottom: solid #141414f8;
+}
+
+/* Button used to display the filters when screen size is small */
+.cat-filter-button {
+    display: none;
+}
+
+.cat-button {
+    background-color: $primary-background;
+    width: 200px;
+    color: $font-primary;
+    border: none;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.cat-button:hover {
+    background-color: $font-secondary;
+}
+
+.cat-title, .posts-reset {
+    margin-top: 5px;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.subcat-wrapper {
+    padding-left: 10px;
+    list-style: none;
+}
+
+.home-post-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+    // Used to indicate current selection
+.active {
+    border-left: solid $font-secondary;
+}
+
+/* Styling for the posts on the homepage */
+.post-wrapper {
+    background-color: $secondary-background;
+    box-shadow: 5px 5px 10px #000000;
+    width: 80%;
+    min-height: 160px;
+    border-radius: 10px;
+    border: none;
+    margin: 20px 0;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.post-wrapper:hover {
+    color: $font-tertiary;
+    background-color: $secondary-background-hover;
+}
+
+.post-header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 10px 0;
+    padding: 0 20px;
+}
+
+.post-header div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.content-wrapper {
+    width: 80%;
+    margin: 10px auto 0 auto;
+}
+
+
+/* Styling for the blog page */
+
+.post-page-wrapper {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.post-section {
+
+}
+
+
+/* Styling for the login/signup pages */
+.form-page-wrapper {
+    margin: 100px auto 0 auto;
+    border: solid;
+    border-radius: 10px;
+    width: 25vw;
+    min-width: 400px;
+    height: 550px;
+    min-height: 300px;
+}
+
+/* Login page */
+.form-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 80px;
+}
+
+.signup-wrapper {
+    margin-top: 20px;
+}
+
+form {
+    margin-top: 20px;
+    width: 60%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-element {
+    display: flex;
+    flex-direction: column;
+}
+
+form button {
+    margin-top: 20px;
+    width: 200px;
+    height: 40px;
+    align-self: center;
+    border: none;
+    justify-self: flex-end;
+}
+
+form button:hover {
+    background-color: cadetblue;
+}
+
+.login-wrapper button {
+    margin-top: 60px;
+}
+
+
+
+.errors {
+    font-size: 14px;
+    color: red;
+    height: 30px;
+}
+
+.form-publish-radios {
+    width: 250px;
+}
+.signup-radios {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* For NEW POST or EDIT POST */
+.post-form-wrapper {
+    width: 80vw;
+    height: 80vh;
+}
+
+.form-radios {
+    display: flex;
+    justify-content: space-between;
+}
+
+.new-post-wrapper {
+}
+
+
+.new-button {
+    height: 30px;
+    font-size: 10px;
+    width: 50px;
+}
+
+.selected {
+}
+
+
+
+@media (max-width: 1000px) {
+    .home-post-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+/* Smallest size to plan for is 320px */
+@media (max-width: 750px) {
+    .home-wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .home-post-wrapper {
+        margin-left: 0px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Used for small screens */
+    .display-cats {
+        display: none;
+    }
+
+    .cat-filter-button {
+        display:inline-block;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        border: none;
+        background-color: $secondary-background;
+        color: $font-tertiary;
+        font-weight: 600;
+        font-size: 30px;
+        margin: 0 10px;
+    }
+
+    .home-cat-wrapper {
+        width: 100%;
+        padding: 0;
+    }
+
+    .cat-filter-wrapper {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        /* flex-direction: column; */
+        align-content: center;
+    }
+
+}
+
+@media (max-width: 610px) {
+
+    /* Adjusts the author and publish date for the blog posts */
+    .post-header div {
+        flex-direction: column;
+        width: 100%;
+    }
+
+}
+

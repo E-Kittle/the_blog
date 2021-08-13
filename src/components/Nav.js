@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import '../style/style.css';
+import '../style/style.scss';
 import { logout } from '../services/auth.service';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../App';
@@ -39,7 +39,7 @@ const Nav = () => {
                     <Link to={`/profile/myprofile`}>View Profile</Link>
                     {/* If admin- display 'New Post' link */}
                     {currentUser.admin ? <Link to='/managePosts'>Manage Posts</Link> : null}
-                    <button onClick={logoutNav}>Logout</button>
+                    <button id='logout-button' onClick={logoutNav}>Logout</button>
                 </div>
             }
         </nav>
