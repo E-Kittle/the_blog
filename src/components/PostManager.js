@@ -30,52 +30,6 @@ const PostManager = (props) => {
             })
     }
 
-    // Triggered by user changing the published status of their post
-    const editLocalPost = (e) => {
-        console.log('TRIGGERED')
-        console.log('would edit post ' + e.target.id)
-        let index = posts.findIndex(post => post._id === e.target.id);
-        let post = posts[index]
-        console.log(post)
-        let newPost = {
-            author: post.author,
-            title: post.title,
-            content: post.content,
-            published: !post.published,
-            category: post.category._id,
-            subcategory: post.subcategory,
-            date: post.date
-        }
-
-        console.log(newPost)
-        editPost(post._id, newPost)
-            .then(response => {
-                if (response.status === 200) {
-                    console.log('success')
-
-                    let allPosts = posts;
-                    allPosts[index] = newPost;
-
-                    console.log(posts[index].published)
-                    console.log(`would change to: ${newPost.published}`)
-                    setPosts([...allPosts]);
-                }
-            })
-            .catch(error => {
-                console.log(error)
-                console.log('why')
-                console.log(error.response)
-                // if (error.response.status === 400) {
-                //     console.log(error.response.data.errArr)
-                // } else {
-                //     console.log(error.response)
-                // }
-
-            })
-
-    }
-
-
     useEffect(() => {
 
         if (currentUser.id === '') {
@@ -100,7 +54,7 @@ const PostManager = (props) => {
             <div className='manage-post-wrapper'>
                 {posts.length === 0 ? <h4>No Posts Found</h4> : <h4 className='section-title'>Posts</h4>}
                 {posts.map((post, index) => {
-                    return <PostManagerSnip post={post} key={index} delPost={delPost} editLocalPost={editLocalPost} manager={true} />
+                    return <PostManagerSnip post={post} key={index} delPost={delPost} manager={true} />
                 })}
             </div>
 
