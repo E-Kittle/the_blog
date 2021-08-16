@@ -61,7 +61,6 @@ const editPost = (postid, data) => {
 
 const getProfile = (userId) => {
     const config = authHeader();
-
     return axios.get(`${API_URL}/user/${userId}`, config);
 }
 

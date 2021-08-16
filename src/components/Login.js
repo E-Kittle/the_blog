@@ -70,7 +70,7 @@ const Login = () => {
                         <input type='password' id='password' name='password' required onChange={handleChange}></input>
                         <span className='errors'>{errors.auth}</span>
                     </div>
-                    <button type='submit' class='button-style'>Login</button>
+                    <button type='submit' className='button-style'>Login</button>
                 </form>
             </div>
         </div>

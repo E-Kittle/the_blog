@@ -7,13 +7,10 @@ import { Link } from 'react-router-dom';
 const PostSnip = (props) => {
     const { post } = props;
 
+    // Extract manager from props - Works as a flag to determine whether or not 
+    // author needs to be extracted
     const [managerStatus, setManagerStatus] = useState(props.manager);
 
-    useEffect(() => {
-        console.log(managerStatus)
-        // console.log(managerStatus === undefined)
-        console.log(props.manager)
-    }, [])
 
     return (
         <Link to={`/post/${post._id}`} className='post-wrapper' key={post._id}>

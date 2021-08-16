@@ -92,6 +92,7 @@ const SignUp = (props) => {
         if (passed) {
             // Validation passed, submit post to API
             if (props.match.params.postid) {
+                console.log(newPost)
                 // Editting post
                 editPost(props.match.params.postid, newPost)
                     .then(response => {
@@ -151,6 +152,7 @@ const SignUp = (props) => {
                         published: response.data.published,
                         category: response.data.category._id,
                         subcategory: response.data.subcategory,
+                        date: response.data.date
                     })
                 })
                 .catch(error => {
