@@ -273,7 +273,7 @@
     margin-bottom: 10px;
     align-self: center;
   }
-  
+   
   /* Hide default HTML checkbox */
   .switch input {
     opacity: 0;
@@ -352,9 +352,24 @@
         align-items: center;
     }
 
-    /* Used for small screens */
+    // Hides the categories unless user clicks on button
+    // button click swaps display-cats for display-menu
+
+    .home-cat-wrapper {
+        position: relative;
+    }
     .display-cats {
         display: none;
+    }
+    
+    .display-menu {
+        position: absolute;
+        border-bottom: solid;
+        display: flex;
+        flex-direction: column;
+        right: 0;
+        background-color: $primary-background;
+        margin-left: 10px;
     }
 
     .cat-filter-button {
@@ -382,6 +397,7 @@
         /* flex-direction: column; */
         align-content: center;
     }
+
 
 }
 
