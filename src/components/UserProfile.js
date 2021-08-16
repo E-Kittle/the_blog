@@ -19,13 +19,14 @@ const UserProfile = (props) => {
   useEffect(() => {
     if (props.match.params.userid === 'myprofile') {
       // Then, we use the currentUsers userid
-      if (currentUser.id === ''){
+      // if (currentUser.id === ''){
         // useEffect from App.js hasn't been called yet, wait until currentUser has
         // all data
-        console.log('holdup')
-      } else if (currentUser.id !== '') {
+        // console.log('holdup')
+
+      // if (currentUser.id !== '') {
           // currentUser has current data - Make the API call
-        console.log('grabbing currentUsers data in UserProfile.js')
+        // console.log('grabbing currentUsers data in UserProfile.js')
         getProfile(currentUser.id)
         .then(results => {
           setProfileUser(results.data.user);
@@ -39,7 +40,7 @@ const UserProfile = (props) => {
         .catch(err => {
           console.log(err.response)
         })
-      }
+      // }
 
     } else {    // Not current user so make API call with param
       console.log('not a match in UserProfile')
@@ -69,7 +70,7 @@ const UserProfile = (props) => {
       {/* Section for the main profile data */}
       <div className='profile-wrapper'>
         <div className='blog-title'>
-          {currentUser.username !== profileUser.username ? <h1>{profileUser.username}</h1> : <h1 className='user-title'>My Profile</h1>}
+          {props.match.params.userid !== 'myprofile'? <h1>{profileUser.username}</h1> : <h1 className='user-title'>My Profile</h1>}
         </div>
       </div>
 
@@ -93,7 +94,7 @@ const UserProfile = (props) => {
       {/* Section for their Posts */}
           <div className='profile-section'>
           {profileUser.admin ? <h1 className='section-title'>Blog Posts</h1> : null}
-          {currentUser.username === profileUser.username? <Link to='/managePosts' className='button-style link-button'>Manage Posts</Link> : null}
+          {currentUser.username === profileUser.username && profileUser.admin? <Link to='/managePosts' className='button-style link-button'>Manage Posts</Link> : null}
           {posts.length === 0 && currentUser.username === profileUser.username? <h2>No Posts by User</h2> : null}
           {posts.map(post => <PostSnip post={post} key={post._id} manager={true}/>)}
 
