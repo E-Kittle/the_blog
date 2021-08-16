@@ -124,7 +124,7 @@ const Post = (props) => {
                             <h3>Author: <Link to={`/profile/${post.author._id}`}>{post.author.username}</Link></h3>
                             <h3>Category: {post.category.name}</h3>
                             <h3>Publish Date: {post.date.slice(0, 10)}</h3>
-                            <p>{post.content}</p>
+                            <div dangerouslySetInnerHTML={{__html:post.content}} />
                         </div>
                     )}
 

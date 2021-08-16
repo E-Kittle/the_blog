@@ -5,6 +5,7 @@ import { getAllCategories, postNewPost, getPost, editPost } from '../services/us
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../App';
+import EditorSnip from './EditorSnip';
 
 const SignUp = (props) => {
 
@@ -63,6 +64,15 @@ const SignUp = (props) => {
                 [e.target.id]: e.target.value
             })
         }
+    }
+
+    // Triggered when user selects 'save editor content'
+    // Triggered when user selects 'save editor content'
+    const handleTextEdit = (text) => {
+        setNewPost({
+            ...newPost,
+            content: text
+        });
     }
 
     const handleSubmit = (e) => {
@@ -185,11 +195,12 @@ const SignUp = (props) => {
                         <input type='text' id='title' name='title' value={newPost.title} required onChange={handleChange}></input>
                         <span className='errors'>{errors.title}</span>
                     </div>
-                    <div className='form-element'>
+                    <EditorSnip handleTextEdit={handleTextEdit} />
+                    {/* <div className='form-element'>
                         <label htmlFor='content'>Content</label>
                         <textarea id='content' name='content' value={newPost.content} required onChange={handleChange}></textarea>
                         <span className='errors'>{errors.content}</span>
-                    </div>
+                    </div> */}
                     <div className='form-radios'>
                         <div className='form-element form-publish-radios'>
                             <p>Do you want to publish this post immediately?</p>
