@@ -44,11 +44,8 @@ const postComment = (postId, author, body) => {
 }
 
 const postNewPost = (newPost) => {
-    console.log('checking newPost in postNewPost user.service')
-    // const config = authHeader();
-    // console.log(config)
-    console.log(newPost)
-    return axios.post(`${API_URL}/posts`, newPost);
+    const config = authHeader();
+    return axios.post(`${API_URL}/posts`, newPost, config);
 }
 
 const deletePost = (postid) => {
