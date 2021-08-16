@@ -5,19 +5,7 @@ import { getAllCategories, postNewPost } from '../services/user.service'
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../App';
-// import { postUserSignUp } from '../services/user.service';
 
-
-/*
-        NECESSARY DATA
-        author: {type: Schema.Types.ObjectId, ref: 'User', required: true},
-        title: {type: String, required: true, maxLength: 150, unique: true},
-        content: {type: String, required: true},
-        date: {type: Date, required: true},
-        published: {type: Boolean, required: true},
-        category: {type: Schema.Types.ObjectId, ref:'Category', required:true},
-        subcategory: {type:String, required: true}
-*/
 const SignUp = () => {
 
     let history = useHistory();
@@ -170,15 +158,16 @@ const SignUp = () => {
                                 <input type='radio' id='no' name='published' required onChange={handleChange}></input>
                             </div>
                         </div>
-                        <div className='form-element form-radios cat-radios'>
+                        <div className='form-element '>
+                            <p>Choose a subcategory</p>
                             {categories.map(cat => {
                                 return (
                                     <div className='cat-radio-container' key={cat._id}>
-                                        <label>{cat.name}</label>
-                                        {cat.subcategories.length === 0 ? <p>No Subcategories Found</p> : null}
+                                        <label className='cat-title'>{cat.name}</label>
+                                        {cat.subcategories.length === 0 ? <p className='subcat-radio'>No Subcategories Found</p> : null}
                                         {cat.subcategories.map(subcat => {
                                             return (
-                                                <div key={subcat}>
+                                                <div className='subcat-radio' key={subcat}>
                                                     <label htmlFor={subcat}>{subcat}</label>
                                                     <input type='radio' id={subcat} name='subcategory' className={cat._id} required onChange={handleChange}></input>
                                                 </div>
@@ -188,10 +177,10 @@ const SignUp = () => {
                                     </div>
                                 )
                             })}
-                            <Link to='/manageCategories'>Manage Categories</Link>
+                            <Link to='/manageCategories' className='button-style link-button'>Manage Categories</Link>
                         </div>
                     </div>
-                    <button type='submit'>Login</button>
+                    <button className='button-style' type='submit'>Submit</button>
                 </form>
             </div>
         </div>

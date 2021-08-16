@@ -149,7 +149,7 @@ const Post = (props) => {
                             <label htmlFor='body'></label>
                             <textarea id='body' name='body' required value={newComment.body} onChange={handleChange} />
                         </div>
-                        <button type='submit'>Submit Comment</button>
+                        <button type='submit' class='button-style'>Submit Comment</button>
                     </form>
                 </div>
             )}

@@ -2,7 +2,7 @@ import Nav from './components/Nav';
 import './style/style.scss'
 import { BrowserRouter as Router } from 'react-router-dom';
 import React, { useEffect, useReducer } from 'react';
-// import { authenticateUser } from './services/auth.service'
+import { authenticateUser } from './services/auth.service'
 import Routes from './Routes';
 // import axios from 'axios';
 
@@ -42,11 +42,11 @@ function App() {
   // useReducer hook for the user
   const [currentUser, dispatch] = useReducer(reducer, initialState);
 
+  // Checks if a token exists in the users localStorage, if so, it pings the database
+  // to check if the session is still active and 'logs in' the user on client side
+  // Additionally, catches any page refresh that would 'logout' the user
   useEffect(() => {
-    console.log('checking token again in app.js (1)')
-    console.log(currentUser)
-    // authenticateUser(setUser);
-
+    authenticateUser(dispatch);
   }, [])
 
   // When a user selects a specific route, we can either use an outside source to store the posts data

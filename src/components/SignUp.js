@@ -154,7 +154,7 @@ const SignUp = () => {
                             <input type='radio' id='posting' name='accountType' required onChange={handleChange}></input>
                         </div>
                     </div>
-                    <button type='submit'>Sign Up</button>
+                    <button type='submit' class='button-style'>Sign Up</button>
                 </form>
             </div>
         </div>

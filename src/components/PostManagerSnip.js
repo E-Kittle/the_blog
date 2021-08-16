@@ -19,8 +19,8 @@ const PostManagerSnip = (props) => {
     return (
         <Link to={`/post/${post._id}`} className='post-wrapper' key={post._id}>
             <div className='manager-button-wrapper'>
-                <button id={post._id} onClick={redirectForEditing}>Edit Post </button>
-                <button id={post._id} onClick={delPost}>Delete Post</button>
+                <button className='button-style' id={post._id} onClick={redirectForEditing}>Edit</button>
+                <button className='button-style' id={post._id} onClick={delPost}>Delete</button>
             </div>
             <div className='post-header'>
                 <h1>{post.title}</h1>

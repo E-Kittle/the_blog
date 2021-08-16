@@ -81,11 +81,12 @@ const CategoryManager = () => {
     return (
         <div className='form-page-wrapper'>
             {loading ? <div>Loading</div> :
-                <div className='form-element form-radios cat-radios'>
+                <div className='form-element cat-manager-wrapper'>
+                    <h1 className='section-title'> Manage Categories</h1>
                     {categories.map(cat => {
                         return (
-                            <div className='cat-radio-container' key={cat._id}>
-                                <h4>{cat.name}</h4>
+                            <div className='cat-manager-container' key={cat._id}>
+                                <h4 className='cat-title'>{cat.name}</h4>
                                 <ul>
                                     {cat.subcategories.map(subcat => {
                                         return (
@@ -95,12 +96,12 @@ const CategoryManager = () => {
                                     }
                                 </ul>
                                 {newSection !== cat._id ?
-                                    <button onClick={handleClick} id={cat._id}> Add</button>
+                                    <button className='button-style' onClick={handleClick} id={cat._id}> Add Subcategory</button>
                                     :
                                     <div>
                                         <input type='text' placeholder='New Subcategory' id='new-subcat' name='new-subcat' onChange={handleChange} />
                                         {error ? <p>{error}</p> : null}
-                                        <button onClick={handleSubmit} id={cat._id} > Add</button>
+                                        <button className='button-style' onClick={handleSubmit} id={cat._id} > Save</button>
                                     </div>
                                 }
                             </div>
@@ -108,12 +109,12 @@ const CategoryManager = () => {
                     })}
                     <div className='new-cat-wrapper'>
                         {newSection !== 'category' ?
-                            <button onClick={handleClick} id='category'> New Category</button>
+                            <button className='button-style cat-button-style' onClick={handleClick} id='category'> New Category</button>
                             :
                             <div>
                                 <input type='text' placeholder='New Category' id='new-cat' name='new-cat' onChange={handleChange} />
                                 {error ? <p>{error}</p> : null}
-                                <button onClick={handleSubmit} className='new-button' id='category'> New Category</button>
+                                <button className='button-style cat-button-style' onClick={handleSubmit} id='category'>Save</button>
                             </div>
                         }
 

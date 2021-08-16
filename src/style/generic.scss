@@ -36,3 +36,17 @@ h2 {
 h3 {
     font-size: 1.2rem;
 }
+
+.button-style {
+    margin-top: 20px;
+    width: 200px;
+    height: 40px;
+    align-self: center;
+    background-color: $secondary-background;
+    box-shadow: 5px 5px 10px #000000;
+    color: $font-tertiary;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    justify-self: flex-end;
+}

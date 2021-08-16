@@ -41,21 +41,12 @@ form {
 .form-element {
     display: flex;
     flex-direction: column;
+
+    p {
+        color: $font-tertiary;
+    }
 }
 
-form button {
-    margin-top: 20px;
-    width: 200px;
-    height: 40px;
-    align-self: center;
-    background-color: $secondary-background;
-    box-shadow: 5px 5px 10px #000000;
-    color: $font-tertiary;
-    font-weight: 600;
-    border: none;
-    border-radius: 10px;
-    justify-self: flex-end;
-}
 
 form button:hover {
     background-color: $secondary-background-hover;
@@ -74,35 +65,114 @@ form button:hover {
 }
 
 .form-publish-radios {
-    width: 250px;
+    width: 230px;
 }
+
 .signup-radios {
-    margin-top: 10px;
+    margin: 10px 0 0 20px;
+    width: 60px;
     display: flex;
     justify-content: space-between;
 }
 
 /* For NEW POST or EDIT POST */
 .post-form-wrapper {
-    width: 80vw;
-    height: 80vh;
+    margin: 0 auto;
+
+    .form-wrapper {
+        // For screens over 500px in width, set the minimum width to 500px
+        min-width: 500px;
+    }
+    form {
+        margin-left: 10px;
+    }
 }
 
 .form-radios {
     display: flex;
     justify-content: space-between;
+    
+    a {
+        margin: 10px 0 10px 0;
+        font-size: .9rem;
+        height: 30px;
+    }
+    
+    .form-publish-radios {
+        border-right: solid;
+        margin-right: 10px;
+    }
 }
 
-.new-button {
-    height: 30px;
-    font-size: 10px;
-    width: 50px;
+// Styling for categories
+.subcat-radio {
+    margin: 5px 0 0 20px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
 }
+
+
+.cat-manager-wrapper {
+    width: 60%;
+    margin: 0 auto;
+
+    h1 {
+        text-align: center;
+    }
+
+    .cat-title {
+        font-size: 1.6rem;
+    }
+
+
+    li {
+        margin-left: 20px;
+        list-style: circle;
+    }
+
+    .button-style {
+        width: 10rem;
+        height: 2rem;
+        font-size: 1rem;
+        margin: 0 0 0 10px;
+    }
+
+    .new-cat-wrapper {
+        margin-top: 30px;
+    }
+
+} 
+
 
 @media (max-width: 500px) {
-    .form-wrapper {
-        width: 95%;
-        min-width: 230px;
-        margin-top: 0;
+
+
+    .post-form-wrapper {    
+        .form-wrapper {
+            // For screens less than 500px in width, reset the min width
+            // width: 230px;
+            width: 95%;
+            min-width: 230px;
+        }
+
+        .form-element {
+            width: 230px;
+        }
+
+        .form-radios {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-publish-radios {
+            border: none;
+            border-bottom: solid;
+            margin: 0 0 10px 0;
+        }
+
+        .form-element {
+            margin-top: 10px;
+        }
     }
 }

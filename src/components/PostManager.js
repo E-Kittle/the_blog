@@ -4,7 +4,7 @@ import { getUserPosts, deletePost } from '../services/user.service';
 import PostManagerSnip from '../components/PostManagerSnip';
 import { UserContext } from '../App';
 
-const PostManager = () => {
+const PostManager = (props) => {
 
     // Grab UserContext from app.js and destructure currentUser from it
     const userContext = useContext(UserContext);
@@ -30,6 +30,7 @@ const PostManager = () => {
 
 
     useEffect(() => {
+
         if (currentUser.id === '') {
             // Wait for App.js to finish grabbing currentUser
         } else {
@@ -47,12 +48,12 @@ const PostManager = () => {
     // component for this
     return (
         <div className='manager-container'>
-            {currentUser.username === '' ? null : <h3>{currentUser.username}'s Blog Posts</h3>}
-            <Link to='/newPost'>Add New Post</Link>
+            {currentUser.username === '' ? null : <h1 className='user-title'>{currentUser.username}'s Blog Posts</h1>}
+            <Link to='/newPost' className='button-style link-button'>Add New Post</Link>
             <div className='manage-post-wrapper'>
-                {posts.length === 0 ? <h4>No Posts Found</h4> : <h4>Posts</h4>}
+                {posts.length === 0 ? <h4>No Posts Found</h4> : <h4 className='section-title'>Posts</h4>}
                 {posts.map(post => {
-                    return <PostManagerSnip post={post} key={post._id} delPost={delPost} />
+                    return <PostManagerSnip post={post} key={post._id} delPost={delPost} manager={true} />
                 })}
             </div>
 

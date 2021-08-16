@@ -69,14 +69,14 @@ const UserProfile = (props) => {
       {/* Section for the main profile data */}
       <div className='profile-wrapper'>
         <div className='blog-title'>
-          {currentUser.username !== profileUser.username ? <h1>{profileUser.username}</h1> : <h1>My Profile</h1>}
+          {currentUser.username !== profileUser.username ? <h1>{profileUser.username}</h1> : <h1 className='user-title'>My Profile</h1>}
         </div>
       </div>
 
       {/* Section for their comments */}
       <div className='comment-section'>
         <h1 className='section-title'>Comments</h1>
-        <div className='comment-wrapper'>
+        <div className='comment-wrapper profile-comments'>
           {comments.length === 0 ?
             <h3>User has no comments</h3>
             :
@@ -93,9 +93,9 @@ const UserProfile = (props) => {
       {/* Section for their Posts */}
           <div className='profile-section'>
           {profileUser.admin ? <h1 className='section-title'>Blog Posts</h1> : null}
-          {currentUser.username === profileUser.username? <Link to='/managePosts'>Manage Posts</Link> : null}
+          {currentUser.username === profileUser.username? <Link to='/managePosts' className='button-style link-button'>Manage Posts</Link> : null}
           {posts.length === 0 && currentUser.username === profileUser.username? <h2>No Posts by User</h2> : null}
-          {posts.map(post => <PostSnip post={post} key={post._id}/>)}
+          {posts.map(post => <PostSnip post={post} key={post._id} manager={true}/>)}
 
           </div>
     </div>

@@ -96,13 +96,14 @@
     width: 100%;
     margin: 10px 0;
     padding: 0 20px;
+
+    div {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
 }
 
-.post-header div {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
 
 .content-wrapper {
     width: 80%;
@@ -150,7 +151,6 @@
     width: 40%;
     min-width: 230px;
     margin: 0 auto;
-    // border: solid;
     
     
     h3 {
@@ -176,6 +176,72 @@
         
     }
 }
+
+
+// Styling for the profile and manage-posts page
+
+.profile-page-wrapper {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.user-title {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 50px;
+    text-transform: capitalize;
+}
+
+.section-title {
+    text-decoration: underline;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.profile-comments {
+    margin: 0 0 0 40px;
+}
+
+.link-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.profile-section .post-wrapper {
+    margin-left: 40px;
+}
+
+.manager-container {
+
+    h4 {
+        margin-top: 30px;
+    }
+
+    .manager-button-wrapper {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    // Overrides the default button styling for the class .button-style
+    button {
+        width: 100px;
+        margin: 5px 10px 0 0;
+        height: 30px;
+        cursor: pointer;
+    }
+
+    .post-wrapper {
+        margin-left: 40px;
+    }
+}
+
+.manage-post-wrapper {
+    margin-left: 40px;
+}
+
+
 
 @media (max-width: 1000px) {
     .home-post-wrapper {
@@ -231,6 +297,8 @@
 
 }
 
+
+
 @media (max-width: 610px) {
 
     /* Adjusts the author and publish date for the blog posts */
@@ -247,3 +315,19 @@
 
 }
 
+@media (max-width: 450px) {
+    .profile-page-wrapper {
+        width: 100%;
+    }
+
+    .post-header {
+        h1 {
+            font-size: 1.2rem;
+        }
+
+        h3 {
+            font-size: 1rem;
+        }
+
+    }
+}

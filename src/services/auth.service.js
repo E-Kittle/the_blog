@@ -47,16 +47,14 @@ const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
 
-const authenticateUser = (setUser) => {
+const authenticateUser = (dispatch) => {
 
   const config = authHeader();
 
   if(config.headers !== undefined) {
     axios.get(API_URL+'userAuth', config)
     .then(request => {
-      // console.log(request.data.user);
-      // Authentication was successful
-      setUser(request.data.user);
+      dispatch({ type: 'setUser', payload:request.data.user })
     })
     .catch(err => {
       if (err.response.status === 401) {  
