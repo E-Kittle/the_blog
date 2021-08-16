@@ -51,6 +51,17 @@ const postNewPost = (newPost) => {
     return axios.post(`${API_URL}/posts`, newPost);
 }
 
+const deletePost = (postid) => {
+    const config = authHeader();
+    return axios.delete(`${API_URL}/posts/${postid}`, config)
+}
+
+const editPost = (postid, data) => {
+    const config = authHeader();
+    return axios.put(`${API_URL}/posts/${postid}`, data, config )
+}
+
+
 const getProfile = (userId) => {
     const config = authHeader();
 
@@ -65,10 +76,6 @@ const postLogin = (user) => {
     return axios.post(`${API_URL}/auth/login`, user)
 }
 
-const deletePost = (postid) => {
-    const config = authHeader();
-    return axios.delete(`${API_URL}/posts/${postid}`, config)
-}
 
 const getUserPosts = (user) => {
     const config = authHeader();
@@ -90,5 +97,5 @@ const postSubCategory = (catId, subcat) => {
 
 export {
     getAllPosts, getUserPosts, postUserSignUp, postLogin, getPost, getComments, postComment, getProfile,
-    getAllCategories, getPostsByCategory, getPostsBySubCategory, postNewPost, deletePost, postCategory, postSubCategory 
+    getAllCategories, getPostsByCategory, getPostsBySubCategory, postNewPost, deletePost, editPost, postCategory, postSubCategory 
 };

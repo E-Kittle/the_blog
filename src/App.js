@@ -9,6 +9,8 @@ import Routes from './Routes';
 // Export context for the user reducerhook
 export const UserContext = React.createContext();
 
+
+
 // Set up Reducer state and function
 const initialState = {
   id: '',
