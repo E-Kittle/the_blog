@@ -6,7 +6,8 @@ const ProfileComment = (props) => {
     // Destructure props
     const { comment } = props;
 
-
+    // Displays each comment made my profile user. Displays their post title, the comment, and the publish date
+    // Additionally, decodes any escaped characters
     return (
         <div className='comment-container' key={comment._id}>
             <Link to={`/post/${comment.post._id}`}>Post Title: {htmlDecode(comment.post.title)}</Link>

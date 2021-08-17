@@ -17,17 +17,13 @@ const UserProfile = (props) => {
   const [comments, setComments] = useState([]);
   const [posts, setPosts] = useState([]);
 
+  // Effect hook to grab user profile data
   useEffect(() => {
-    if (props.match.params.userid === 'myprofile') {
-      // Then, we use the currentUsers userid
-      // if (currentUser.id === ''){
-        // useEffect from App.js hasn't been called yet, wait until currentUser has
-        // all data
-        // console.log('holdup')
 
-      // if (currentUser.id !== '') {
-          // currentUser has current data - Make the API call
-        // console.log('grabbing currentUsers data in UserProfile.js')
+    // Checks if the current user is viewing their profile
+    if (props.match.params.userid === 'myprofile') {
+
+      // Grabs current users data from api
         getProfile(currentUser.id)
         .then(results => {
           setProfileUser(results.data.user);
@@ -41,10 +37,9 @@ const UserProfile = (props) => {
         .catch(err => {
           console.log(err.response)
         })
-      // }
+      
 
     } else {    // Not current user so make API call with param
-      console.log('not a match in UserProfile')
       getProfile(props.match.params.userid)
       .then(results => {
           setProfileUser(results.data.user);
@@ -59,7 +54,6 @@ const UserProfile = (props) => {
         .catch(err => {
           console.log(err.response)
         })
-      // We use the id of the paramater to make the API call
 
     }
   }, [props.match.params.userid, currentUser])
@@ -71,7 +65,7 @@ const UserProfile = (props) => {
       {/* Section for the main profile data */}
       <div className='profile-wrapper'>
         <div className='blog-title'>
-          {props.match.params.userid !== 'myprofile'? <h1>{htmlDecode(profileUser.username)}</h1> : <h1 className='user-title'>My Profile</h1>}
+          {props.match.params.userid !== 'myprofile'? <h1 className='user-title'>{htmlDecode(profileUser.username)}</h1> : <h1 className='user-title'>My Profile</h1>}
         </div>
       </div>
 

@@ -10,11 +10,6 @@ import EditorSnip from './EditorSnip';
 const SignUp = (props) => {
 
 
-    /*
-    If post isn't found then what? 
-    Set radio buttons to appropriate values
-
-    */
     let history = useHistory();
 
 
@@ -29,8 +24,9 @@ const SignUp = (props) => {
         content: ''
     });
 
+    // State to hold the newpost
     const [newPost, setNewPost] = useState({
-        author: '',             //To be set by useEffect from currentUser
+        author: '',             //To be set by useEffect from currentUser, or by edit post
         title: '',
         content: '',
         published: false,
@@ -38,8 +34,10 @@ const SignUp = (props) => {
         subcategory: '',
     })
 
-
+    // Triggered when user types in a title or selects a radiobutton
     const handleChange = (e) => {
+
+        // User checked a 'published' button, set to appropriate value
         if (e.target.type === 'radio' && e.target.name === 'published') {
             if (e.target.id === 'yes') {
                 setNewPost({
@@ -52,6 +50,7 @@ const SignUp = (props) => {
                     published: false
                 })
             }
+        // User checked a subcategory radio button, set the appropriate state
         } else if (e.target.type === 'radio' && e.target.name === 'subcategory') {
             setNewPost({
                 ...newPost,
@@ -59,6 +58,7 @@ const SignUp = (props) => {
                 subcategory: e.target.id
             })
         } else {
+            // User is changing the title
             setNewPost({
                 ...newPost,
                 [e.target.id]: e.target.value
@@ -66,8 +66,7 @@ const SignUp = (props) => {
         }
     }
 
-    // Triggered when user selects 'save editor content'
-    // Triggered when user selects 'save editor content'
+    // For tinymce controlled input editor - Triggered within <EditorSnip> component
     const handleTextEdit = (text) => {
         console.log(text)
         setNewPost({
@@ -76,15 +75,18 @@ const SignUp = (props) => {
         });
     }
 
+    // Triggered when user submits the new post
     const handleSubmit = (e) => {
         // The radio buttons are set to required, so they do not need to be validated
         e.preventDefault();
-        let passed = true;
+        let passed = true;  //Default flag, if below validation fails it is set to false
 
         // Verify title is at least 3 characters long and less than 150 characters
         if ((newPost.title.length < 3 || newPost.title.length >= 150) || newPost.content.length < 10) {
 
-            passed = false;
+            passed = false;     //Indicates authentication failed
+
+            // Default values to hold error until setErrors
             let titleErr = '';
             let contentErr = '';
 
@@ -103,17 +105,18 @@ const SignUp = (props) => {
         if (passed) {
             // Validation passed, submit post to API
             if (props.match.params.postid) {
-                console.log(newPost)
-                // Editting post
+                // Presence of postid indicates that the user is editting a post
                 editPost(props.match.params.postid, newPost)
                     .then(response => {
                         if (response.status === 200) {
-                            history.push('/managePosts')
+                            history.push('/managePosts')    //Redirect user
                         }
                     })
                     .catch(error => {
                         if (error.response.status === 400) {
                             console.log(error.response.data.errArr)
+                            // postid is not found, redirect user to manageposts page so they can select correct post
+                            history.push('/managePosts')    //Redirect user
                         } else {
                             console.log(error.response)
                         }
@@ -124,7 +127,7 @@ const SignUp = (props) => {
                 postNewPost(newPost)
                     .then(response => {
                         if (response.status === 200) {
-                            history.push('/managePosts')
+                            history.push('/managePosts')    //Redirect user
                         }
                     })
                     .catch(error => {
@@ -140,7 +143,9 @@ const SignUp = (props) => {
         }
     }
 
-    // Used to set the authors id to that of the currentUser
+    // Used to set post data
+    // if user is making a new post, grab their userid
+    // if user is editting a post, grab all their previous data
     useEffect(() => {
         if (props.match.params.postid === undefined) {
             // User is submitting a new post
@@ -153,7 +158,7 @@ const SignUp = (props) => {
                 })
             }
         } else {
-            // User is editting a post
+            // User is editting a post so grab all previous data
             getPost(props.match.params.postid)
                 .then(response => {
                     setNewPost({
@@ -189,28 +194,21 @@ const SignUp = (props) => {
     return (
         <div className='form-page-wrapper post-form-wrapper'>
             <div className='form-wrapper new-post-wrapper'>
+
                 {props.match.params.postid === undefined ? <h1>New Post</h1> : <h1>Edit Post</h1>}
+
                 <form onSubmit={handleSubmit}>
+
                     <div className='form-element'>
                         <label htmlFor='title'>Title</label>
                         <input type='text' id='title' name='title' value={newPost.title} required onChange={handleChange}></input>
                         <span className='errors'>{errors.title}</span>
                     </div>
-                    {/* <EditorSnip
-                        initialValue=''
-                        value={newPost.content}
-                        onEditorChange={(newValue, editor) => {
-                            console.log(newValue)
-                            setNewPost({
-                            ...newPost,
-                            content: newValue
-                        })}} /> */}
+
+                    {/* The tinymce editor */}
                     <EditorSnip handleTextEdit={handleTextEdit} contentValue={newPost.content} />
-                    {/* <div className='form-element'>
-                        <label htmlFor='content'>Content</label>
-                        <textarea id='content' name='content' value={newPost.content} required onChange={handleChange}></textarea>
-                        <span className='errors'>{errors.content}</span>
-                    </div> */}
+
+                    {/* Radio buttons to determine whether the user wants to publish the post now or later */}
                     <div className='form-radios'>
                         <div className='form-element form-publish-radios'>
                             <p>Do you want to publish this post immediately?</p>
@@ -223,6 +221,8 @@ const SignUp = (props) => {
                                 <input type='radio' id='no' name='published' checked={newPost.published === false} required onChange={handleChange}></input>
                             </div>
                         </div>
+
+                        {/* Radio buttons allowing the user to select a subcategory for their post */}
                         <div className='form-element '>
                             <p>Choose a subcategory</p>
                             {categories.map(cat => {
@@ -242,6 +242,7 @@ const SignUp = (props) => {
                                     </div>
                                 )
                             })}
+                            {/* Link that directs user to a page where they can add categories */}
                             <Link to='/manageCategories' className='button-style link-button'>Manage Categories</Link>
                         </div>
                     </div>

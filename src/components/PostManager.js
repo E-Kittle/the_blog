@@ -14,22 +14,24 @@ const PostManager = (props) => {
     // State to hold the users posts
     const [posts, setPosts] = useState([]);
 
-
+    // Triggered by 'delete' button to remove a post from the backend
     const delPost = (e) => {
         e.preventDefault();
         deletePost(e.target.id)
             .then(results => {
+                // Manually remove the deleted post from the posts state
+                // Since only the user has access to this page, we don't have to worry about another API call due to changed data
                 let index = posts.findIndex(post => post._id === e.target.id)
                 let newPosts = posts;
                 newPosts.splice(index, 1)
                 setPosts([...newPosts])
             })
             .catch(err => {
-                console.log('error')
                 console.log(err)
             })
     }
 
+    // Effect hook to grab the current users posts
     useEffect(() => {
 
         if (currentUser.id === '') {
@@ -45,8 +47,7 @@ const PostManager = (props) => {
         }
     }, [currentUser])
 
-    // Currently using postsnip but I'll probably want to use a special
-    // component for this
+    // JSX to display each of the users posts
     return (
         <div className='manager-container'>
             {currentUser.username === '' ? null : <h1 className='user-title'>{htmlDecode(currentUser.username)}'s Blog Posts</h1>}

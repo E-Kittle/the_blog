@@ -6,7 +6,7 @@ import { postUserSignUp } from '../services/user.service';
 
 const SignUp = () => {
 
-
+    // State to hold a user and errors
     const [errors, setErrors] = useState({
         username: '',
         email: '',
@@ -21,13 +21,11 @@ const SignUp = () => {
         admin: false
     })
 
-    // use the history hook to redirect user in handleSubmit() function
     // - Will redirect user to the login page after successful account
     // creation
     let history = useHistory();
 
-    // Function to handle user changing any input field
-    // on the sign-up page
+    // Function to handle user changing any input field on the sign-up page
     const handleChange = (e) => {
         // Radio button was selected, update the state
         if (e.target.type === 'radio') {
@@ -56,7 +54,7 @@ const SignUp = () => {
     // Function to handle user creating a new account
     const handleSubmit = (e) => {
 
-        console.log()
+        e.preventDefault();
         // Flag to indicate whether the user input passed validation
         // if any validation fails, this flag is set to false
         let passed = true;
@@ -91,7 +89,6 @@ const SignUp = () => {
         if(!passed) {
             // User failed data validation.
             // Display errors to user and allow another attempt 
-            e.preventDefault();
         } else {
             // User input passed validation, create user in database and
             // redirect to login page
@@ -104,7 +101,7 @@ const SignUp = () => {
                 admin: newUser.admin
             }
 
-            e.preventDefault();
+            // Submit data to the backend and redirect user to the login screen
             postUserSignUp(user)
             .then(response => {
                 if(response.status === 200) {
@@ -118,6 +115,7 @@ const SignUp = () => {
 
     }
 
+    // JSX to hold the signup form
     return (
         <div className='form-page-wrapper'>
             <div className='form-wrapper signup-wrapper'>

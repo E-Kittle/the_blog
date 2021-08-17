@@ -6,7 +6,7 @@ const Comment = (props) => {
     // Destructure props
     const { comment } = props;
 
-
+    // Displays each comments author, date, and content - decoding any escaped characters
     return (
         <div className='comment-container'>
             <div className='comment-meta'>

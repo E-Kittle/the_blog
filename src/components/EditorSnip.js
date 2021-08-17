@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
  import { Editor } from '@tinymce/tinymce-react';
 import { eventPropTypes } from '@tinymce/tinymce-react/lib/cjs/main/ts/components/EditorPropTypes';
  
+// This displays the tinymce editor to the NewPost form
  export default function EditorSnip(props) {
    const editorRef = useRef(null);
 
@@ -15,9 +16,11 @@ import { eventPropTypes } from '@tinymce/tinymce-react/lib/cjs/main/ts/component
    return (
      <>
        <Editor
+         apiKey='wvjyti8o3yktr4kzsebkpn3035i0d3mf9mt2c3bunadu0at9'
          onInit={(evt, editor) => editorRef.current = editor}
          initialValue= ''
          value={props.contentValue}
+        //  Value and onEditorChange make this a controlled component that passes the values back to NewPost.js
          onEditorChange={(newValue, editor) => props.handleTextEdit(newValue)}
          init={{
            height: 500,
@@ -33,9 +36,7 @@ import { eventPropTypes } from '@tinymce/tinymce-react/lib/cjs/main/ts/component
            'removeformat | help',
            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
          }}
-      //  onChange={(e) => console.log(e.target)}
        />
-       {/* <button onClick={log}>Save editor content</button> */}
      </>
    );
  }

@@ -39,10 +39,10 @@ const Post = (props) => {
         event.preventDefault();
 
         //Send the comment to the database with axios
-
         postComment(props.match.params.id, newComment.posterid, newComment.body)
             .then(response => {
                 // Clear newComment - This clears the input fields
+                // If poserid is empty, it'll default to Guest user
                 if (currentUser.username !== '') {
                     setNewComment({ posterid: currentUser.id, body: '' });
                 } else {
@@ -51,13 +51,9 @@ const Post = (props) => {
             })
             .catch(error => {
                 if (error.response.status === 400) {
-
-                    //This returns the error data to a 400 request
-                    //This will be triggered if the comment body is missing
-                    //However, this will never be triggered because
-                    //the text input has 'required'
                     console.log(error.response.data.errArr);
                 }
+                console.log(error)
             });
 
     }
@@ -65,15 +61,16 @@ const Post = (props) => {
     //Hook to grab the current post
     useEffect(() => {
 
+        // Triggers axios method to grab the posts
         getPost(props.match.params.id)
             .then(response => {
-                // console.log(response.data)
                 setPost(response.data);
-                setLoading(false);
+                setLoading(false);      //Flag to indicate to the user visually that the data is being fetched
             })
             .catch(error => {
                 console.log(error.response.status)
                 if (error.response.status === 404) {
+                    // Post is not found - Set error to indicate to the user they need to return to the homepage
                     setErr('not found')
                     setLoading(false)
                 } else {
@@ -101,7 +98,7 @@ const Post = (props) => {
                     setComments(response.data.comments);
                 })
                 .catch(error => {
-                    console.log('for comment')
+                    // Post is not found
                     if (error.response.status === 404) {
                         setErr('not found')
                         setLoading(false);
@@ -112,18 +109,17 @@ const Post = (props) => {
         }
     }, [newComment, props.match.params.id]);
 
-    // const htmlDecode = (input)  => {
-    //     var doc = new DOMParser().parseFromString(input, "text/html");
-    //     return doc.documentElement.textContent;
-    //   }
 
-
+    // JSX to display the post, its associated data, and all related comments
     return (
         <div className='post-page-wrapper'>
+            {/* Display loading message for users */}
+            {loading ? <h1>Loading...</h1> : null}
+
+            {/* If db call fails due to inapropriate post_id, display an error */}
             {err !== '' ? <h1> Post not found, return to HomePage </h1> : (
                 <div>
-                    {loading ? <h1>Loading...</h1> : null}
-                    {/* First, check if the database had returned an author yet */}
+                    {/* First, checks that all data has finished loading, then displays post data for user */}
                     {post.author === undefined ? null : (
                         <div className='post-section' >
                             <h1>{htmlDecode(post.title)}</h1>

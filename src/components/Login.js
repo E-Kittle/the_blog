@@ -8,7 +8,7 @@ const Login = () => {
 
     const userContext = useContext(UserContext);
 
-    // Router method for re-routing user
+    // Router method for re-routing user after successful login
     let history = useHistory();
 
 
@@ -27,12 +27,11 @@ const Login = () => {
     }
 
 
-
-
-    // This works. but logs 'here' and then 'in auth.service'
+    // Function to login the user
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        // Logs in the user
         login(user.username, user.password)
             .then(response => {
                 // Authentication was successful, clear errors state and redirect to homepage
@@ -55,6 +54,7 @@ const Login = () => {
             )
     }
 
+    // Displays the username and password text input fields with their appropriate onChange and onSubmit handlers
     return (
         <div className='form-page-wrapper'>
             <div className='form-wrapper login-wrapper'>

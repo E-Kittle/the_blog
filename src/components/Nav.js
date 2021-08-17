@@ -27,6 +27,7 @@ const Nav = () => {
             <div className='nav-title'>
                 <Link to='/'>The Blog</Link>
             </div>
+            {/* Checks if a user is logged in, if not display login and signup links */}
             {currentUser.username === '' ?
                 // Not logged in
                 <div className='nav-links'>
@@ -34,11 +35,12 @@ const Nav = () => {
                     <Link to='/signup'>Sign Up</Link>
                 </div>
                 :
-                // Logged in
+                // {/* Logged in */}
                 <div className='nav-links'>
                     <Link to={`/profile/myprofile`}>View Profile</Link>
                     {/* If admin- display 'New Post' link */}
                     {currentUser.admin ? <Link to='/managePosts'>Manage Posts</Link> : null}
+
                     <button id='logout-button' onClick={logoutNav}>Logout</button>
                 </div>
             }

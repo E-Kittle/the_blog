@@ -3,23 +3,21 @@ import { getAllCategories, postCategory, postSubCategory } from '../services/use
 import htmlDecode from '../services/formatting';
 
 const CategoryManager = () => {
-
-
-    // Could possibly change this to a reducer hook?
-    const [categories, setCategories] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [newSection, setNewSection] = useState('');
-    const [newInput, setNewInput] = useState('');
-    const [error, setError] = useState('');
+    // state variables
+    const [categories, setCategories] = useState([]);   //to hold the categories
+    const [loading, setLoading] = useState(true);       //Used to indicate to user that data is loading
+    const [newSection, setNewSection] = useState('');   //Used to indicate where to place the text input for a new cat/subcat
+    const [newInput, setNewInput] = useState('');       //Used to hold the text input for a new cat/subcat
+    const [error, setError] = useState('');             //Used to hold any errors
 
     // Saves the incoming text input
     const handleChange = (e) => {
         setNewInput(e.target.value);
     }
 
-    // Adds a text input for a new subcategory to the JSX by setting the newSubcat state
+    // Adds a text input for a new cat/subcategory to the JSX by setting the newSection state
     const handleClick = (e) => {
-        setNewInput('');            //Clear the old input
+        setNewInput('');            //Clear the old input and errors
         setError('');
         setNewSection(e.target.id)
     }
@@ -40,7 +38,7 @@ const CategoryManager = () => {
         if (e.target.id === 'category') {
             postCategory(newInput)
                 .then(results => {
-                    console.log(results)
+                    //Clears the input and section states and clears the categories state, triggering a new API call
                     setCategories([])
                     setNewInput('');
                     setNewSection('');
@@ -52,7 +50,7 @@ const CategoryManager = () => {
             // Add a new subcategory
             postSubCategory(newSection, newInput)
                 .then(results => {
-                    console.log(results)
+                    //Clears the input and section states and clears the categories state, triggering a new API call
                     setCategories([])
                     setNewInput('');
                     setNewSection('');
@@ -60,19 +58,17 @@ const CategoryManager = () => {
                 .catch(err => {
                     console.log(err.response)
                 })
-            console.log(`Would add new subcat: ${newInput} to category: ${newSection}`)
         }
     }
 
     // Effect hook to grab the categories from the backend
     useEffect(() => {
-        console.log('checking')
-        if (categories.length === 0) {
+        if (categories.length === 0) {      //Ensures duplicate API calls are not made
 
             getAllCategories()
                 .then(response => {
-                    setLoading(false)
-                    setCategories(response.data.categories);
+                    setLoading(false)       //Clears the loading flag
+                    setCategories(response.data.categories);    //Saves the retrieved categories to state
                 })
                 .catch(error => console.log(error))
         }
@@ -81,14 +77,17 @@ const CategoryManager = () => {
 
     return (
         <div className='form-page-wrapper'>
+            {/* If the data is still being grabbed from the api, display a loading message */}
             {loading ? <div>Loading</div> :
                 <div className='form-element cat-manager-wrapper'>
                     <h1 className='section-title'> Manage Categories</h1>
+                    {/* Loops through each category, displaying its name and the associated subcats */}
                     {categories.map(cat => {
                         return (
                             <div className='cat-manager-container' key={cat._id}>
                                 <h4 className='cat-title'>{htmlDecode(cat.name)}</h4>
                                 <ul>
+                                    {/* Display each of the subcategories related to the category */}
                                     {cat.subcategories.map(subcat => {
                                         return (
                                             <li key={subcat}>{htmlDecode(subcat)}</li>
@@ -96,6 +95,7 @@ const CategoryManager = () => {
                                     })
                                     }
                                 </ul>
+                                {/*Default shows a button to add a new subcat, if user clicks the button they are presented with the text input */}
                                 {newSection !== cat._id ?
                                     <button className='button-style' onClick={handleClick} id={cat._id}> Add Subcategory</button>
                                     :
@@ -109,6 +109,7 @@ const CategoryManager = () => {
                         )
                     })}
                     <div className='new-cat-wrapper'>
+                        {/*Default shows a button to add a new cat, if user clicks the button they are presented with the text input */}
                         {newSection !== 'category' ?
                             <button className='button-style cat-button-style' onClick={handleClick} id='category'> New Category</button>
                             :
