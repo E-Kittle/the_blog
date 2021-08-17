@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../style/style.scss';
 import { Link } from 'react-router-dom';
+import htmlDecode from '../services/formatting';
 
 
 
@@ -15,14 +16,14 @@ const PostSnip = (props) => {
     return (
         <Link to={`/post/${post._id}`} className='post-wrapper' key={post._id}>
             <div className='post-header'>
-                <h1>{post.title}</h1>
+                <h1>{htmlDecode(post.title)}</h1>
                 <div>
-                    {managerStatus === undefined ? <h3>Author: {post.author.username}</h3> : null}
+                    {managerStatus === undefined ? <h3>Author: {htmlDecode(post.author.username)}</h3> : null}
                     <h3>{post.date.slice(0, 10)}</h3>
                 </div>
             </div>
             <div className='content-wrapper'>
-                <p>{`${post.content.slice(0, 200)}...`}</p>
+            <div dangerouslySetInnerHTML={{__html:htmlDecode(`${post.content.slice(0, 200)}...`)}} />
             </div>
         </Link>
     )

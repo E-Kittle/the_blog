@@ -3,6 +3,7 @@ import Comment from './Comment';
 import { getPost, getComments, postComment } from '../services/user.service';
 import { UserContext } from '../App';
 import { Link } from 'react-router-dom';
+import htmlDecode from '../services/formatting'
 
 
 const Post = (props) => {
@@ -111,6 +112,11 @@ const Post = (props) => {
         }
     }, [newComment, props.match.params.id]);
 
+    // const htmlDecode = (input)  => {
+    //     var doc = new DOMParser().parseFromString(input, "text/html");
+    //     return doc.documentElement.textContent;
+    //   }
+
 
     return (
         <div className='post-page-wrapper'>
@@ -120,11 +126,11 @@ const Post = (props) => {
                     {/* First, check if the database had returned an author yet */}
                     {post.author === undefined ? null : (
                         <div className='post-section' >
-                            <h1>{post.title}</h1>
-                            <h3>Author: <Link to={`/profile/${post.author._id}`}>{post.author.username}</Link></h3>
+                            <h1>{htmlDecode(post.title)}</h1>
+                            <h3>Author: <Link to={`/profile/${post.author._id}`}>{htmlDecode(post.author.username)}</Link></h3>
                             <h3>Category: {post.category.name}</h3>
                             <h3>Publish Date: {post.date.slice(0, 10)}</h3>
-                            <div dangerouslySetInnerHTML={{__html:post.content}} />
+                            <div dangerouslySetInnerHTML={{__html:htmlDecode(post.content)}} />
                         </div>
                     )}
 

@@ -4,6 +4,7 @@ import ProfileComment from '../components/ProfileComment';
 import PostSnip from '../components/PostSnip';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../App';
+import htmlDecode from '../services/formatting';
 
 const UserProfile = (props) => {
 
@@ -70,7 +71,7 @@ const UserProfile = (props) => {
       {/* Section for the main profile data */}
       <div className='profile-wrapper'>
         <div className='blog-title'>
-          {props.match.params.userid !== 'myprofile'? <h1>{profileUser.username}</h1> : <h1 className='user-title'>My Profile</h1>}
+          {props.match.params.userid !== 'myprofile'? <h1>{htmlDecode(profileUser.username)}</h1> : <h1 className='user-title'>My Profile</h1>}
         </div>
       </div>
 

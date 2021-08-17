@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 // import '../style/style.scss';
 import PostSnip from '../components/PostSnip';
 import { getAllPosts, getAllCategories, getPostsByCategory, getPostsBySubCategory } from '../services/user.service';
+import htmlDecode from '../services/formatting';
 
 
 
@@ -111,11 +112,11 @@ const Home = () => {
                         else {
                             return (
                                 <div className='cat-wrapper' key={cat._id}>
-                                    <button className={selection ===cat._id ? 'cat-title cat-button active' : 'cat-title cat-button'} id={cat._id} onClick={handleClick}>{cat.name}</button>
+                                    <button className={selection ===cat._id ? 'cat-title cat-button active' : 'cat-title cat-button'} id={cat._id} onClick={handleClick}>{htmlDecode(cat.name)}</button>
                                     <ul className='subcat-wrapper'>
                                         {cat.subcategories.map(subcat => {
                                             return (<li key={subcat}>
-                                                <button className={selection === subcat ? 'subcat-title cat-button active' : 'subcat-title cat-button'} id={subcat} onClick={handleClick} >{subcat}</button>
+                                                <button className={selection === subcat ? 'subcat-title cat-button active' : 'subcat-title cat-button'} id={subcat} onClick={handleClick} >{htmlDecode(subcat)}</button>
                                             </li>)
                                         })}
                                     </ul>

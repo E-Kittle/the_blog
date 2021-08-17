@@ -11,7 +11,7 @@ const SignUp = (props) => {
 
 
     /*
-    If post isn't found then what?
+    If post isn't found then what? 
     Set radio buttons to appropriate values
 
     */
@@ -69,6 +69,7 @@ const SignUp = (props) => {
     // Triggered when user selects 'save editor content'
     // Triggered when user selects 'save editor content'
     const handleTextEdit = (text) => {
+        console.log(text)
         setNewPost({
             ...newPost,
             content: text
@@ -195,7 +196,16 @@ const SignUp = (props) => {
                         <input type='text' id='title' name='title' value={newPost.title} required onChange={handleChange}></input>
                         <span className='errors'>{errors.title}</span>
                     </div>
-                    <EditorSnip handleTextEdit={handleTextEdit} />
+                    {/* <EditorSnip
+                        initialValue=''
+                        value={newPost.content}
+                        onEditorChange={(newValue, editor) => {
+                            console.log(newValue)
+                            setNewPost({
+                            ...newPost,
+                            content: newValue
+                        })}} /> */}
+                    <EditorSnip handleTextEdit={handleTextEdit} contentValue={newPost.content} />
                     {/* <div className='form-element'>
                         <label htmlFor='content'>Content</label>
                         <textarea id='content' name='content' value={newPost.content} required onChange={handleChange}></textarea>

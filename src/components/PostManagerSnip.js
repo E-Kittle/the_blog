@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../style/style.scss';
 import { useHistory, Link } from 'react-router-dom';
 import { editPost } from '../services/user.service';
+import htmlDecode from '../services/formatting';
 
 
 const PostManagerSnip = (props) => {
@@ -52,11 +53,11 @@ const PostManagerSnip = (props) => {
                 <button className='button-style' id={post._id} onClick={delPost}>Delete</button>
             </div>
             <div className='post-header'>
-                <Link to={`/post/${post._id}`}>{post.title}</Link>
+                <Link to={`/post/${post._id}`}>{htmlDecode(post.title)}</Link>
                 <h3>{post.date.slice(0, 10)}</h3>
             </div>
             <div className='content-wrapper'>
-                <p>{`${post.content.slice(0, 200)}...`}</p>
+            <div dangerouslySetInnerHTML={{__html:htmlDecode(`${post.content.slice(0, 200)}...`)}} />
             </div>
             <div className='switch-container'>
                 <h4>Published: </h4>

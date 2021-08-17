@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import htmlDecode from '../services/formatting';
 
 const ProfileComment = (props) => {
 
@@ -8,8 +9,8 @@ const ProfileComment = (props) => {
 
     return (
         <div className='comment-container' key={comment._id}>
-            <Link to={`/post/${comment.post._id}`}>Post Title: {comment.post.title}</Link>
-            <p>{comment.comment}</p>
+            <Link to={`/post/${comment.post._id}`}>Post Title: {htmlDecode(comment.post.title)}</Link>
+            <p>{htmlDecode(comment.comment)}</p>
             <p>{comment.date.slice(0, 10)}</p>
         </div>
     )

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getAllCategories, postCategory, postSubCategory } from '../services/user.service';
+import htmlDecode from '../services/formatting';
 
 const CategoryManager = () => {
 
@@ -86,11 +87,11 @@ const CategoryManager = () => {
                     {categories.map(cat => {
                         return (
                             <div className='cat-manager-container' key={cat._id}>
-                                <h4 className='cat-title'>{cat.name}</h4>
+                                <h4 className='cat-title'>{htmlDecode(cat.name)}</h4>
                                 <ul>
                                     {cat.subcategories.map(subcat => {
                                         return (
-                                            <li key={subcat}>{subcat}</li>
+                                            <li key={subcat}>{htmlDecode(subcat)}</li>
                                         )
                                     })
                                     }

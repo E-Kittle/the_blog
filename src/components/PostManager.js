@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { getUserPosts, deletePost, editPost } from '../services/user.service';
 import PostManagerSnip from '../components/PostManagerSnip';
 import { UserContext } from '../App';
-import Post from './Post';
+import htmlDecode from '../services/formatting';
 
 const PostManager = (props) => {
 
@@ -49,7 +49,7 @@ const PostManager = (props) => {
     // component for this
     return (
         <div className='manager-container'>
-            {currentUser.username === '' ? null : <h1 className='user-title'>{currentUser.username}'s Blog Posts</h1>}
+            {currentUser.username === '' ? null : <h1 className='user-title'>{htmlDecode(currentUser.username)}'s Blog Posts</h1>}
             <Link to='/newPost' className='button-style link-button'>Add New Post</Link>
             <div className='manage-post-wrapper'>
                 {posts.length === 0 ? <h4>No Posts Found</h4> : <h4 className='section-title'>Posts</h4>}
