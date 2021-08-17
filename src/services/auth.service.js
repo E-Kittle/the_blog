@@ -39,14 +39,18 @@ const login = (username, password) => {
     })
 };
 
+// Logs a user out locally by removing their token from localstorage
 const logout = () => {
   localStorage.removeItem("user");
 };
 
+// Grabs the current users token from localstorage
 const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
 
+// Used to authenticate a returning user
+// It checks if a token exists and if it does, sends the data to the API
 const authenticateUser = (dispatch) => {
 
   const config = authHeader();
